@@ -1,0 +1,488 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Parameter estimates and fit statistics of latent change score models</title>
+
+
+
+<style type="text/css">code{white-space: pre;}</style>
+<style type="text/css" data-origin="pandoc">
+code.sourceCode > span { display: inline-block; line-height: 1.25; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode { white-space: pre; position: relative; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+code.sourceCode { white-space: pre-wrap; }
+code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+    color: #aaaaaa;
+  }
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } /* Alert */
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
+code span.at { color: #7d9029; } /* Attribute */
+code span.bn { color: #40a070; } /* BaseN */
+code span.bu { } /* BuiltIn */
+code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
+code span.ch { color: #4070a0; } /* Char */
+code span.cn { color: #880000; } /* Constant */
+code span.co { color: #60a0b0; font-style: italic; } /* Comment */
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
+code span.do { color: #ba2121; font-style: italic; } /* Documentation */
+code span.dt { color: #902000; } /* DataType */
+code span.dv { color: #40a070; } /* DecVal */
+code span.er { color: #ff0000; font-weight: bold; } /* Error */
+code span.ex { } /* Extension */
+code span.fl { color: #40a070; } /* Float */
+code span.fu { color: #06287e; } /* Function */
+code span.im { } /* Import */
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
+code span.kw { color: #007020; font-weight: bold; } /* Keyword */
+code span.op { color: #666666; } /* Operator */
+code span.ot { color: #007020; } /* Other */
+code span.pp { color: #bc7a00; } /* Preprocessor */
+code span.sc { color: #4070a0; } /* SpecialChar */
+code span.ss { color: #bb6688; } /* SpecialString */
+code span.st { color: #4070a0; } /* String */
+code span.va { color: #19177c; } /* Variable */
+code span.vs { color: #4070a0; } /* VerbatimString */
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
+
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    for (var j = 0; j < rules.length; j++) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") continue;
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') continue;
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Parameter estimates and fit statistics of latent change score models</h1>
+
+
+
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(lcsm)</span></code></pre></div>
+<p>The main underlying functions to extract parameters and fit statistics come from the <code>broom</code> package: <code>broom::tidy()</code> and <code>broom::glance()</code>. The functions <code>extract_param()</code> and <code>extract_fit()</code> offer some tools that I find helpful when running LCS models in R, for example:</p>
+<ul>
+<li><code>extract_param()</code>: only one row per estimated parameter,</li>
+<li><code>extract_fit()</code>: fit statistics for multiple lavaan objects can be extracted.</li>
+</ul>
+<p>A table of the description of all parameters that can be estimated is shown <a href="#overview-of-estimated-lcs-model-parameters">here</a>.</p>
+<div id="create-some-univariate-models" class="section level2">
+<h2>Create some univariate models</h2>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># First create a lavaan object</span></span>
+<span id="cb2-2"><a href="#cb2-2"></a>uni_lcsm_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
+<span id="cb2-3"><a href="#cb2-3"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-4"><a href="#cb2-4"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb2-5"><a href="#cb2-5"></a>                                         <span class="dt">beta =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb2-6"><a href="#cb2-6"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb2-7"><a href="#cb2-7"></a></span>
+<span id="cb2-8"><a href="#cb2-8"></a>uni_lcsm_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
+<span id="cb2-9"><a href="#cb2-9"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-10"><a href="#cb2-10"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-11"><a href="#cb2-11"></a>                                         <span class="dt">beta =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb2-12"><a href="#cb2-12"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb2-13"><a href="#cb2-13"></a></span>
+<span id="cb2-14"><a href="#cb2-14"></a>uni_lcsm_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
+<span id="cb2-15"><a href="#cb2-15"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-16"><a href="#cb2-16"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-17"><a href="#cb2-17"></a>                                         <span class="dt">beta =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-18"><a href="#cb2-18"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span></code></pre></div>
+</div>
+<div id="extract-fit-statistics" class="section level2">
+<h2>Extract fit statistics</h2>
+<p>This function takes the <code>lavaan</code> objects as input and returns some fit statistics. More fit statistics can be returned using the argument <code>details = TRUE</code>.</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2"></a><span class="kw">extract_fit</span>(uni_lcsm_<span class="dv">01</span>, uni_lcsm_<span class="dv">02</span>, uni_lcsm_<span class="dv">03</span>)</span>
+<span id="cb3-3"><a href="#cb3-3"></a><span class="co">#&gt; # A tibble: 3 x 8</span></span>
+<span id="cb3-4"><a href="#cb3-4"></a><span class="co">#&gt;   model  chisq  npar    aic    bic   cfi  rmsea   srmr</span></span>
+<span id="cb3-5"><a href="#cb3-5"></a><span class="co">#&gt;   &lt;chr&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt; &lt;dbl&gt;  &lt;dbl&gt;  &lt;dbl&gt;</span></span>
+<span id="cb3-6"><a href="#cb3-6"></a><span class="co">#&gt; 1 1     6527.      3 12139. 12151. 0     0.875  6.26  </span></span>
+<span id="cb3-7"><a href="#cb3-7"></a><span class="co">#&gt; 2 2       33.3     6  5651.  5676. 0.994 0.0525 0.0534</span></span>
+<span id="cb3-8"><a href="#cb3-8"></a><span class="co">#&gt; 3 3       33.2     7  5653.  5682. 0.993 0.0557 0.0519</span></span></code></pre></div>
+</div>
+<div id="extract-parameters" class="section level2">
+<h2>Extract parameters</h2>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1"></a><span class="co"># Now extract parameter estimates</span></span>
+<span id="cb4-2"><a href="#cb4-2"></a><span class="co"># Only extract first 7 columns for this example by adding [ , 1:7]</span></span>
+<span id="cb4-3"><a href="#cb4-3"></a>param_uni_lcsm_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">extract_param</span>(uni_lcsm_<span class="dv">03</span>, <span class="dt">printp =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb4-4"><a href="#cb4-4"></a></span>
+<span id="cb4-5"><a href="#cb4-5"></a><span class="co"># Print table of parameter estimates</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>knitr<span class="op">::</span><span class="kw">kable</span>(param_uni_lcsm_<span class="dv">02</span>, </span>
+<span id="cb4-7"><a href="#cb4-7"></a>             <span class="dt">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb4-8"><a href="#cb4-8"></a>             <span class="dt">caption =</span> <span class="st">&quot;Parameter estimates for bivariate LCSM&quot;</span>)</span></code></pre></div>
+<table>
+<caption>Parameter estimates for bivariate LCSM</caption>
+<thead>
+<tr class="header">
+<th align="left">label</th>
+<th align="right">estimate</th>
+<th align="right">std.error</th>
+<th align="right">statistic</th>
+<th align="left">p.value</th>
+<th align="right">conf.low</th>
+<th align="right">conf.high</th>
+<th align="right">std.lv</th>
+<th align="right">std.all</th>
+<th align="right">std.nox</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">gamma_lx1</td>
+<td align="right">21.075</td>
+<td align="right">0.037</td>
+<td align="right">565.047</td>
+<td align="left">&lt; .001</td>
+<td align="right">21.002</td>
+<td align="right">21.149</td>
+<td align="right">30.574</td>
+<td align="right">30.574</td>
+<td align="right">30.574</td>
+</tr>
+<tr class="even">
+<td align="left">sigma2_lx1</td>
+<td align="right">0.475</td>
+<td align="right">0.038</td>
+<td align="right">12.420</td>
+<td align="left">&lt; .001</td>
+<td align="right">0.400</td>
+<td align="right">0.550</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="odd">
+<td align="left">sigma2_ux</td>
+<td align="right">0.213</td>
+<td align="right">0.008</td>
+<td align="right">26.674</td>
+<td align="left">&lt; .001</td>
+<td align="right">0.198</td>
+<td align="right">0.229</td>
+<td align="right">0.213</td>
+<td align="right">0.310</td>
+<td align="right">0.310</td>
+</tr>
+<tr class="even">
+<td align="left">alpha_g2</td>
+<td align="right">-1.803</td>
+<td align="right">0.118</td>
+<td align="right">-15.282</td>
+<td align="left">&lt; .001</td>
+<td align="right">-2.034</td>
+<td align="right">-1.572</td>
+<td align="right">-3.303</td>
+<td align="right">-3.303</td>
+<td align="right">-3.303</td>
+</tr>
+<tr class="odd">
+<td align="left">sigma2_g2</td>
+<td align="right">0.298</td>
+<td align="right">0.023</td>
+<td align="right">13.149</td>
+<td align="left">&lt; .001</td>
+<td align="right">0.254</td>
+<td align="right">0.343</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+<td align="right">1.000</td>
+</tr>
+<tr class="even">
+<td align="left">sigma_g2lx1</td>
+<td align="right">0.156</td>
+<td align="right">0.020</td>
+<td align="right">7.797</td>
+<td align="left">&lt; .001</td>
+<td align="right">0.117</td>
+<td align="right">0.195</td>
+<td align="right">0.415</td>
+<td align="right">0.415</td>
+<td align="right">0.415</td>
+</tr>
+<tr class="odd">
+<td align="left">beta_x</td>
+<td align="right">-0.002</td>
+<td align="right">0.006</td>
+<td align="right">-0.329</td>
+<td align="left">.742</td>
+<td align="right">-0.015</td>
+<td align="right">0.010</td>
+<td align="right">-0.003</td>
+<td align="right">-0.003</td>
+<td align="right">-0.003</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div id="todos" class="section level1">
+<h1>TODOs</h1>
+<ul>
+<li>For now see example in README file on Github or shinyApp “shinychange”</li>
+<li>step by step example here building all the way up to a univariate lcsm</li>
+<li>select data</li>
+<li>run univariate models</li>
+<li>add parameters and compare results using anova and model parameters</li>
+<li>use grimm 2017 data?</li>
+</ul>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
