@@ -14,6 +14,22 @@
 
 <title>Parameter estimates and fit statistics of latent change score models</title>
 
+<script>// Hide empty <a> tag within highlighted CodeBlock for screen reader accessibility (see https://github.com/jgm/pandoc/issues/6352#issuecomment-626106786) -->
+// v0.0.1
+// Written by JooYoung Seo (jooyoung@psu.edu) and Atsushi Yasumoto on June 1st, 2020.
+
+document.addEventListener('DOMContentLoaded', function() {
+  const codeList = document.getElementsByClassName("sourceCode");
+  for (var i = 0; i < codeList.length; i++) {
+    var linkList = codeList[i].getElementsByTagName('a');
+    for (var j = 0; j < linkList.length; j++) {
+      if (linkList[j].innerHTML === "") {
+        linkList[j].setAttribute('aria-hidden', 'true');
+      }
+    }
+  }
+});
+</script>
 
 
 <style type="text/css">code{white-space: pre;}</style>
@@ -303,7 +319,10 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(lcsm)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1"></a><span class="kw">library</span>(lcsm)</span>
+<span id="cb1-2"><a href="#cb1-2"></a><span class="kw">library</span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="co">#&gt; This is lavaan 0.6-6</span></span>
+<span id="cb1-4"><a href="#cb1-4"></a><span class="co">#&gt; lavaan is BETA software! Please report any bugs.</span></span></code></pre></div>
 <p>The main underlying functions to extract parameters and fit statistics come from the <code>broom</code> package: <code>broom::tidy()</code> and <code>broom::glance()</code>. The functions <code>extract_param()</code> and <code>extract_fit()</code> offer some tools that I find helpful when running LCS models in R, for example:</p>
 <ul>
 <li><code>extract_param()</code>: only one row per estimated parameter,</li>
@@ -314,24 +333,30 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1"></a><span class="co"># First fit some latent change score models</span></span>
 <span id="cb2-2"><a href="#cb2-2"></a></span>
 <span id="cb2-3"><a href="#cb2-3"></a><span class="co"># No change model</span></span>
-<span id="cb2-4"><a href="#cb2-4"></a>uni_lcsm_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
+<span id="cb2-4"><a href="#cb2-4"></a>uni_lcsm_<span class="dv">01</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_uni_lcsm, </span>
 <span id="cb2-5"><a href="#cb2-5"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
 <span id="cb2-6"><a href="#cb2-6"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">FALSE</span>, </span>
 <span id="cb2-7"><a href="#cb2-7"></a>                                         <span class="dt">beta =</span> <span class="ot">FALSE</span>, </span>
 <span id="cb2-8"><a href="#cb2-8"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb2-9"><a href="#cb2-9"></a><span class="co"># Constant change only model</span></span>
-<span id="cb2-10"><a href="#cb2-10"></a>uni_lcsm_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
-<span id="cb2-11"><a href="#cb2-11"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
-<span id="cb2-12"><a href="#cb2-12"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb2-13"><a href="#cb2-13"></a>                                         <span class="dt">beta =</span> <span class="ot">FALSE</span>, </span>
-<span id="cb2-14"><a href="#cb2-14"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
-<span id="cb2-15"><a href="#cb2-15"></a></span>
-<span id="cb2-16"><a href="#cb2-16"></a><span class="co"># Constant change and proportional change (Dual change model)</span></span>
-<span id="cb2-17"><a href="#cb2-17"></a>uni_lcsm_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_bi_lcsm, </span>
-<span id="cb2-18"><a href="#cb2-18"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
-<span id="cb2-19"><a href="#cb2-19"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb2-20"><a href="#cb2-20"></a>                                         <span class="dt">beta =</span> <span class="ot">TRUE</span>, </span>
-<span id="cb2-21"><a href="#cb2-21"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span></code></pre></div>
+<span id="cb2-9"><a href="#cb2-9"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-10"><a href="#cb2-10"></a><span class="co">#&gt;   239</span></span>
+<span id="cb2-11"><a href="#cb2-11"></a><span class="co"># Constant change only model</span></span>
+<span id="cb2-12"><a href="#cb2-12"></a>uni_lcsm_<span class="dv">02</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_uni_lcsm, </span>
+<span id="cb2-13"><a href="#cb2-13"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-14"><a href="#cb2-14"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-15"><a href="#cb2-15"></a>                                         <span class="dt">beta =</span> <span class="ot">FALSE</span>, </span>
+<span id="cb2-16"><a href="#cb2-16"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb2-17"><a href="#cb2-17"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-18"><a href="#cb2-18"></a><span class="co">#&gt;   239</span></span>
+<span id="cb2-19"><a href="#cb2-19"></a></span>
+<span id="cb2-20"><a href="#cb2-20"></a><span class="co"># Constant change and proportional change (Dual change model)</span></span>
+<span id="cb2-21"><a href="#cb2-21"></a>uni_lcsm_<span class="dv">03</span> &lt;-<span class="st"> </span><span class="kw">fit_uni_lcsm</span>(<span class="dt">data =</span> data_uni_lcsm, </span>
+<span id="cb2-22"><a href="#cb2-22"></a>                            <span class="dt">var =</span> <span class="kw">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-23"><a href="#cb2-23"></a>                            <span class="dt">model =</span> <span class="kw">list</span>(<span class="dt">alpha_constant =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-24"><a href="#cb2-24"></a>                                         <span class="dt">beta =</span> <span class="ot">TRUE</span>, </span>
+<span id="cb2-25"><a href="#cb2-25"></a>                                         <span class="dt">phi =</span> <span class="ot">FALSE</span>))</span>
+<span id="cb2-26"><a href="#cb2-26"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-27"><a href="#cb2-27"></a><span class="co">#&gt;   239</span></span></code></pre></div>
 </div>
 <div id="extract-fit-statistics" class="section level2">
 <h2>Extract fit statistics</h2>
@@ -360,33 +385,33 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <tbody>
 <tr class="odd">
 <td align="left">1</td>
-<td align="right">6527.339</td>
+<td align="right">2761.423</td>
 <td align="right">3</td>
-<td align="right">12138.847</td>
-<td align="right">12151.490</td>
+<td align="right">7371.135</td>
+<td align="right">7383.772</td>
 <td align="right">0.000</td>
-<td align="right">0.875</td>
-<td align="right">6.265</td>
+<td align="right">0.569</td>
+<td align="right">2.070</td>
 </tr>
 <tr class="even">
 <td align="left">2</td>
-<td align="right">33.281</td>
+<td align="right">17.734</td>
 <td align="right">6</td>
-<td align="right">5650.789</td>
-<td align="right">5676.076</td>
-<td align="right">0.994</td>
-<td align="right">0.052</td>
-<td align="right">0.053</td>
+<td align="right">4633.446</td>
+<td align="right">4658.721</td>
+<td align="right">0.998</td>
+<td align="right">0.023</td>
+<td align="right">0.068</td>
 </tr>
 <tr class="odd">
 <td align="left">3</td>
-<td align="right">33.159</td>
+<td align="right">11.615</td>
 <td align="right">7</td>
-<td align="right">5652.666</td>
-<td align="right">5682.169</td>
-<td align="right">0.993</td>
-<td align="right">0.056</td>
-<td align="right">0.052</td>
+<td align="right">4629.327</td>
+<td align="right">4658.815</td>
+<td align="right">1.000</td>
+<td align="right">0.000</td>
+<td align="right">0.054</td>
 </tr>
 </tbody>
 </table>
@@ -409,8 +434,6 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <th align="right">std.error</th>
 <th align="right">statistic</th>
 <th align="left">p.value</th>
-<th align="right">conf.low</th>
-<th align="right">conf.high</th>
 <th align="right">std.lv</th>
 <th align="right">std.all</th>
 <th align="right">std.nox</th>
@@ -419,87 +442,73 @@ code > span.er { color: #a61717; background-color: #e3d2d2; }
 <tbody>
 <tr class="odd">
 <td align="left">gamma_lx1</td>
-<td align="right">21.075</td>
-<td align="right">0.037</td>
-<td align="right">565.047</td>
+<td align="right">21.066</td>
+<td align="right">0.060</td>
+<td align="right">348.365</td>
 <td align="left">&lt; .001</td>
-<td align="right">21.002</td>
-<td align="right">21.149</td>
-<td align="right">30.574</td>
-<td align="right">30.574</td>
-<td align="right">30.574</td>
+<td align="right">17.456</td>
+<td align="right">17.456</td>
+<td align="right">17.456</td>
 </tr>
 <tr class="even">
 <td align="left">sigma2_lx1</td>
-<td align="right">0.475</td>
-<td align="right">0.038</td>
-<td align="right">12.420</td>
+<td align="right">1.456</td>
+<td align="right">0.101</td>
+<td align="right">14.413</td>
 <td align="left">&lt; .001</td>
-<td align="right">0.400</td>
-<td align="right">0.550</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="odd">
 <td align="left">sigma2_ux</td>
-<td align="right">0.213</td>
-<td align="right">0.008</td>
-<td align="right">26.674</td>
+<td align="right">0.231</td>
+<td align="right">0.011</td>
+<td align="right">20.336</td>
 <td align="left">&lt; .001</td>
-<td align="right">0.198</td>
-<td align="right">0.229</td>
-<td align="right">0.213</td>
-<td align="right">0.310</td>
-<td align="right">0.310</td>
+<td align="right">0.231</td>
+<td align="right">0.137</td>
+<td align="right">0.137</td>
 </tr>
 <tr class="even">
 <td align="left">alpha_g2</td>
-<td align="right">-1.803</td>
-<td align="right">0.118</td>
-<td align="right">-15.282</td>
-<td align="left">&lt; .001</td>
-<td align="right">-2.034</td>
-<td align="right">-1.572</td>
-<td align="right">-3.303</td>
-<td align="right">-3.303</td>
-<td align="right">-3.303</td>
+<td align="right">-0.157</td>
+<td align="right">0.287</td>
+<td align="right">-0.547</td>
+<td align="left">.584</td>
+<td align="right">-0.450</td>
+<td align="right">-0.450</td>
+<td align="right">-0.450</td>
 </tr>
 <tr class="odd">
 <td align="left">sigma2_g2</td>
-<td align="right">0.298</td>
-<td align="right">0.023</td>
-<td align="right">13.149</td>
+<td align="right">0.122</td>
+<td align="right">0.015</td>
+<td align="right">7.916</td>
 <td align="left">&lt; .001</td>
-<td align="right">0.254</td>
-<td align="right">0.343</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 <td align="right">1.000</td>
 </tr>
 <tr class="even">
 <td align="left">sigma_g2lx1</td>
-<td align="right">0.156</td>
-<td align="right">0.020</td>
-<td align="right">7.797</td>
+<td align="right">0.264</td>
+<td align="right">0.033</td>
+<td align="right">7.961</td>
 <td align="left">&lt; .001</td>
-<td align="right">0.117</td>
-<td align="right">0.195</td>
-<td align="right">0.415</td>
-<td align="right">0.415</td>
-<td align="right">0.415</td>
+<td align="right">0.627</td>
+<td align="right">0.627</td>
+<td align="right">0.627</td>
 </tr>
 <tr class="odd">
 <td align="left">beta_x</td>
-<td align="right">-0.002</td>
-<td align="right">0.006</td>
-<td align="right">-0.329</td>
-<td align="left">.742</td>
-<td align="right">-0.015</td>
-<td align="right">0.010</td>
-<td align="right">-0.003</td>
-<td align="right">-0.003</td>
-<td align="right">-0.003</td>
+<td align="right">-0.038</td>
+<td align="right">0.015</td>
+<td align="right">-2.606</td>
+<td align="left">.009</td>
+<td align="right">-0.142</td>
+<td align="right">-0.142</td>
+<td align="right">-0.142</td>
 </tr>
 </tbody>
 </table>

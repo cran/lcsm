@@ -12,7 +12,7 @@ library(lcsm)
 uni_lavaan_results <- fit_uni_lcsm(data = data_uni_lcsm, 
                                    var = c("x1", "x2", "x3", "x4", "x5"),
                                    model = list(alpha_constant = TRUE, 
-                                                beta = TRUE, 
+                                                beta = FALSE, 
                                                 phi = TRUE)
                                   )
 
@@ -20,7 +20,7 @@ uni_lavaan_results <- fit_uni_lcsm(data = data_uni_lcsm,
 uni_lavaan_syntax <- fit_uni_lcsm(data = data_uni_lcsm, 
                                   var = c("x1", "x2", "x3", "x4", "x5"),
                                   model = list(alpha_constant = TRUE, 
-                                               beta = TRUE, 
+                                               beta = FALSE, 
                                                phi = TRUE),
                                   return_lavaan_syntax = TRUE)
 

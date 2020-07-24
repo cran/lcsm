@@ -6,8 +6,8 @@
 #' @param layout Matrix, specifying number and location of manifest and latent variables of LCS model specified in  \code{lavaan_object}.
 #' @param return_layout_from_lavaan_syntax Logical, if TRUE and \code{lavaan_syntax} is provided, the layout matrix generated for \link[semPlot]{semPaths} will be returned for inspection of further customisation.
 #' @param lcsm String, specifying whether lavaan_object represent a "univariate" or "bivariate" LCS model.
-#' @param what See \code{semPlot}. "path" to show unweighted gray edges, "par" to show parameter estimates as weighted (green/red) edges 
-#' @param whatLabels See \link[semPlot]{semPaths}. "label" to show edege names as label, "est" for parameter estimates, "hide" to hide edge labels.
+#' @param what See \code{semPlot}. "path" to show unweighted grey edges, "par" to show parameter estimates as weighted (green/red) edges 
+#' @param whatLabels See \link[semPlot]{semPaths}. "label" to show edge names as label, "est" for parameter estimates, "hide" to hide edge labels.
 #' @param lcsm_colours Logical, if TRUE the following colours will be used to highlight different parts of the model: Observed variables (White); Latent true scores (Green); Latent change scores (Blue) ; Change factors (Yellow).
 #' @param edge.width See \link[semPlot]{semPaths}.
 #' @param node.width  See \link[semPlot]{semPaths}.
@@ -25,6 +25,7 @@
 #' @param edge.label.cex See \link[semPlot]{semPaths}.
 #' @param nCharEdges See \link[semPlot]{semPaths}.
 #' @param ... Other arguments passed on to \link[semPlot]{semPaths}.
+#' @importFrom lavaan lavInspect
 #' @references Sacha Epskamp (2019). semPlot: Path Diagrams and Visual Analysis of Various SEM Packages' Output. R package version 1.1.1.
 #' \url{https://CRAN.R-project.org/package=semPlot}
 #' @examples 
