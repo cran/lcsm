@@ -11,6 +11,7 @@ specify_bi_lcsm(
   var_y,
   model_y,
   coupling,
+  add = NULL,
   change_letter_x = "g",
   change_letter_y = "j"
 )
@@ -56,6 +57,8 @@ specify_bi_lcsm(
 \item{\code{xi_lag_yx}}{ (Change score x predicting subsequent change score y)}.
 }}
 
+\item{add}{String, lavaan syntax to be added to the model}
+
 \item{change_letter_x}{String, specifying letter to be used as change factor for construct x in lavaan syntax.}
 
 \item{change_letter_y}{String, specifying letter to be used as change factor for construct y in lavaan syntax.}
@@ -67,7 +70,7 @@ Lavaan model syntax including comments.
 Specify lavaan model for bivariate latent change score models
 }
 \examples{
-# Specify bivariate LCS model
+# Specify bivariate LCSM
 lavaan_bi_lcsm_01 <- specify_bi_lcsm(timepoints = 10, 
                                      var_x = "x",
                                      model_x = list(alpha_constant = TRUE, 
@@ -90,12 +93,12 @@ cat(lavaan_bi_lcsm_01)
 
 }
 \references{
-Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \url{https://doi.org/10.1080/10705511.2012.713275}.
+Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \doi{doi.org/10.1080/10705511.2012.713275}.
 
 Grimm, K. J., Ram, N., & Estabrook, R. (2017). Growth Modeling—Structural Equation and Multilevel Modeling Approaches. New York: The Guilford Press.
 
-McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \url{https://doi.org/10.1146/annurev.psych.60.110707.163612}.
+McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \doi{10.1146/annurev.psych.60.110707.163612}.
 
 Yves Rosseel (2012). lavaan: An R Package for Structural Equation Modeling. Journal of Statistical Software, 48(2), 1-36.
-\url{http://www.jstatsoft.org/v48/i02/}.
+\doi{10.18637/jss.v048.i02}.
 }

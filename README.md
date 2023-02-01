@@ -5,50 +5,40 @@
 
 <!-- badges: start -->
 
-[![Travis build
-status](https://travis-ci.com/milanwiedemann/lcsm.svg?branch=master)](https://travis-ci.com/milanwiedemann/lcsm)
-[![AppVeyor build
-status](https://ci.appveyor.com/api/projects/status/github/milanwiedemann/lcsm?branch=master&svg=true)](https://ci.appveyor.com/project/milanwiedemann/lcsm)
-[![licence](https://img.shields.io/badge/Licence-GPL--3-brightgreen.svg)](https://choosealicense.com/licenses/gpl-3.0/)
+[![licence](https://img.shields.io/badge/Licence-MIT-brightgreen.svg)](https://choosealicense.com/licenses/mit/)
 [![CRAN
-status](https://www.r-pkg.org/badges/version/lcsm)](https://CRAN.R-project.org/package=lcsm)
-[![](https://cranlogs.r-pkg.org/badges/grand-total/lcsm)](https://cran.r-project.org/package=lcsm)
+status](https://www.r-pkg.org/badges/version/lcsm)](https://CRAN.R-project.org/package=lcsm/)
 <!-- badges: end -->
 
 This package offers some helper functions to specify and analyse
 univariate and bivariate latent change score models (LCSM) using
-[lavaan](http://lavaan.ugent.be/) (Rosseel,
-[2012](http://www.jstatsoft.org/v48/i02/)). For details about this
+[lavaan](https://lavaan.ugent.be/) (Rosseel,
+[2012](https://www.jstatsoft.org/v48/i02/)). For details about this
 method see for example McArdle
-([2009](http://www.annualreviews.org/doi/10.1146/annurev.psych.60.110707.163612)),
-Ghisletta ([2012](https://doi.org/10.1080/10705511.2012.713275)), Grimm
-et al. ([2012](https://doi.org/10.1080/10705511.2012.659627)), and
+([2009](https://pubmed.ncbi.nlm.nih.gov/18817479/)), Ghisletta
+([2012](https://pubmed.ncbi.nlm.nih.gov/25505366/)), Grimm et
+al. ([2012](https://www.ncbi.nlm.nih.gov/pmc/articles/PMC3638891/)), and
 Grimm, Ram & Estabrook
 ([2017](https://www.guilford.com/books/Growth-Modeling/Grimm-Ram-Estabrook/9781462526062)).
 
-I started working on this project to teach me how latent change score
-modeling works and how it can be done in R. This package combines the
-strengths of other R packages like [lavaan](http://lavaan.ugent.be/),
-[broom](https://broom.tidyverse.org), and
-[semPlot](https://CRAN.R-project.org/package=semPlot) by generating
-lavaan syntax that helps these packages work together.
-
-An interactive web application
-**[`shinychange`](https://milanwiedemann.shinyapps.io/shinychange)**
-illustrates some functions of this package. This is work in progress and
-feedback is very welcome\!
+The `lcsm` package combines the strengths of other R packages like
+[lavaan](https://lavaan.ugent.be/),
+[broom](https://github.com/tidymodels/broom/), and
+[semPlot](https://CRAN.R-project.org/package=semPlot/) by generating
+lavaan syntax that helps these packages work together. This is work in
+progress and feedback is very welcome!
 
 ## Installation
 
 You can install the released version of `lcsm` from
-[CRAN](https://CRAN.R-project.org/package=lcsm) with:
+[CRAN](https://CRAN.R-project.org/package=lcsm/) with:
 
 ``` r
 install.packages("lcsm")
 ```
 
 The development version can be installed from
-[GitHub](https://github.com/milanwiedemann/lcsm) using:
+[GitHub](https://github.com/milanwiedemann/lcsm/) using:
 
 ``` r
 # install.packages("devtools")
@@ -57,32 +47,35 @@ devtools::install_github("milanwiedemann/lcsm")
 
 ## Overview of the functions
 
-The `lcsm` package contains the following functions that can be
-categorised into:
+The `lcsm` package contains the functions listed below. A more detailed
+description of these functions is available in this README or vignettes.
+The interactive online application
+**[`shinychange`](https://milanwiedemann.shinyapps.io/shinychange/)**
+also illustrates some functions of this package.
 
-  - Functions to generate [lavaan](http://lavaan.ugent.be/) syntax for
-    different model specifications:
-      - `specify_uni_lcsm()`: Generate syntax for univariate LCSM
-      - `specify_bi_lcsm()`: Generate syntax for bivariate LCSM
-  - Functions to fit models using [lavaan](http://lavaan.ugent.be/):
-      - `fit_uni_lcsm()`: Fit univariate LCSM
-      - `fit_bi_lcsm()`: Fit bivariate LCSM
-  - Functions to extract results from models using
-    [broom](https://broom.tidyverse.org/):
-      - `extract_fit()`: Extract fit statistics
-      - `extract_param()`: Extract estimated parameters
-  - Simulate data using [lavaan](http://lavaan.ugent.be/):
-      - `sim_uni_lcsm()`: Simulate data by specifying parameters for a
-        univariate LCSM
-      - `sim_bi_lcsm()`: Simulate data by specifying parameters for a
-        bivariate LCSM
-  - Helper functions:
-      - `plot_lcsm()`: Visualise LCSM using
-        [semPlot](http://sachaepskamp.com/semPlot)
-      - `select_uni_cases()`: Select cases for analysis based on
-        available scores on one construct
-      - `select_bi_cases()`: Select cases for analysis based on
-        available scores on two construct
+- Functions to generate [lavaan](https://lavaan.ugent.be/) syntax for
+  different model specifications:
+  - `specify_uni_lcsm()`: Generate syntax for univariate LCSM
+  - `specify_bi_lcsm()`: Generate syntax for bivariate LCSM
+- Functions to fit models using [lavaan](https://lavaan.ugent.be/):
+  - `fit_uni_lcsm()`: Fit univariate LCSM
+  - `fit_bi_lcsm()`: Fit bivariate LCSM
+- Functions to extract results from models using
+  [broom](https://broom.tidymodels.org/):
+  - `extract_fit()`: Extract fit statistics
+  - `extract_param()`: Extract estimated parameters
+- Simulate data using [lavaan](https://lavaan.ugent.be/):
+  - `sim_uni_lcsm()`: Simulate data by specifying parameters for a
+    univariate LCSM
+  - `sim_bi_lcsm()`: Simulate data by specifying parameters for a
+    bivariate LCSM
+- Helper functions:
+  - `plot_lcsm()`: Visualise LCSM using
+    [semPlot](https://github.com/SachaEpskamp/semPlot/)
+  - `select_uni_cases()`: Select cases for analysis based on available
+    scores on one construct
+  - `select_bi_cases()`: Select cases for analysis based on available
+    scores on two construct
 
 ## How to use `lcsm`
 
@@ -91,6 +84,11 @@ Here are a few examples how to use the `lcsm` package.
 ``` r
 # Load the package
 library(lcsm)
+#> 
+#> ── This is lcsm 0.3.1 ──────────────────────────────────────────────────────────
+#> ℹ Please report any issues or ideas at:
+#> ℹ https://github.com/milanwiedemann/lcsm/issues
+#> 
 ```
 
 ### Visualise data
@@ -122,30 +120,30 @@ plot_y <- plot_trajectories(data = data_bi_lcsm,
 # Arrange plots next to each other using patchwork
 library(patchwork)
 plot_x + plot_y + plot_annotation(tag_levels = 'A')
-#> Warning: Removed 18 row(s) containing missing values (geom_path).
-#> Warning: Removed 85 rows containing missing values (geom_point).
-#> Warning: Removed 37 row(s) containing missing values (geom_path).
-#> Warning: Removed 172 rows containing missing values (geom_point).
+#> Warning: Removed 18 rows containing missing values (`geom_line()`).
+#> Warning: Removed 85 rows containing missing values (`geom_point()`).
+#> Warning: Removed 37 rows containing missing values (`geom_line()`).
+#> Warning: Removed 172 rows containing missing values (`geom_point()`).
 ```
 
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
-### Fit LCS models
+### Fit LCSMs
 
-In a first step the functions `specify_uni_lcsm()` and
-`specify_bi_lcsm()` are used to specify the lavaan syntax for a specific
-LCS model. The functions `fit_uni_lcsm()` and `fit_bi_lcsm()` are
-running specifying the syntax before passing it on to lavaan.
+The functions `fit_uni_lcsm()` and `fit_bi_lcsm()` can be used to fit
+univariate and bivariate LCSM with different model specifications. In a
+first step, these two function generate the user specified lavaan syntax
+by calling the `specify_uni_lcsm()` or `specify_bi_lcsm()` functions.
 
-The following table descibes some of the different model specifications
+The following table describes some of the different model specifications
 that the `model` arguments can take. More detail can be found in the
 help files `help(fit_uni_lcsm)`.
 
-#### Fit univariate LCS models
+#### Fit univariate LCSMs
 
 | Model specification | Description                     |
-| :------------------ | :------------------------------ |
-| alpha\_constant     | Constant change factor          |
+|:--------------------|:--------------------------------|
+| alpha_constant      | Constant change factor          |
 | beta                | Proportional change factor      |
 | phi                 | Autoregression of change scores |
 
@@ -164,10 +162,9 @@ specify_uni_lcsm(timepoints = 5,
 ```
 
 <details>
-
-<summary>Click here to see the <code>lavaan</code> syntax specified
-above.</summary>
-
+<summary>
+Click here to see the <code>lavaan</code> syntax specified above.
+</summary>
 <p>
 
     # Specify latent true scores 
@@ -239,12 +236,11 @@ above.</summary>
     dx5 ~ phi_x * dx4 
 
 </p>
-
 </details>
 
-The function `fit_uni_lcsm()` can be used to fit a univariate LCS model
-using the sample data set `data_uni_lcsm`. This functions first writes
-the lavaan syntax specified in the `model` argument and passes it on to
+The function `fit_uni_lcsm()` can be used to fit a univariate LCSM using
+the sample data set `data_uni_lcsm`. This functions first writes the
+lavaan syntax specified in the `model` argument and passes it on to
 `lavaaan::lavaan()`.
 
 ``` r
@@ -255,23 +251,23 @@ fit_uni_lcsm(data = data_uni_lcsm,
              model = list(alpha_constant = TRUE, 
                           beta = FALSE, 
                           phi = TRUE))
-#> lavaan 0.6-6 ended normally after 66 iterations
+#> lavaan 0.6.13 ended normally after 67 iterations
 #> 
 #>   Estimator                                         ML
 #>   Optimization method                           NLMINB
-#>   Number of free parameters                         23
+#>   Number of model parameters                        23
 #>   Number of equality constraints                    16
-#>                                                       
+#> 
 #>   Number of observations                           500
 #>   Number of missing patterns                       273
-#>                                                       
+#> 
 #> Model Test User Model:
-#>                                                Standard      Robust
-#>   Test Statistic                                 75.389      74.400
-#>   Degrees of freedom                                 58          58
-#>   P-value (Chi-square)                            0.062       0.072
-#>   Scaling correction factor                                   1.013
-#>        Yuan-Bentler correction (Mplus variant)
+#>                                               Standard      Scaled
+#>   Test Statistic                                75.389      74.400
+#>   Degrees of freedom                                58          58
+#>   P-value (Chi-square)                           0.062       0.072
+#>   Scaling correction factor                                  1.013
+#>     Yuan-Bentler correction (Mplus variant)
 ```
 
 It is also possible to show the lavaan syntax that was created to fit
@@ -297,10 +293,9 @@ cat(syntax)
 ```
 
 <details>
-
-<summary>Click here to see the lavaan syntax specified in
-<code>syntax</code>.</summary>
-
+<summary>
+Click here to see the lavaan syntax specified in <code>syntax</code>.
+</summary>
 <p>
 
     # Specify latent true scores 
@@ -417,28 +412,27 @@ cat(syntax)
     dx10 ~ phi_x * dx9 
 
 </p>
-
 </details>
 
-#### Fit bivariate LCS models
+#### Fit bivariate LCSMs
 
-The function `fit_bi_lcsm()` allowes to specify two univariate LCS
-models using the arguments `model_x` and `model_x`. These two constructs
-can then be connected using the `coupling` argument. More details can be
+The function `fit_bi_lcsm()` allows to specify two univariate LCSMs
+using the arguments `model_x` and `model_x`. These two constructs can
+then be connected using the `coupling` argument. More details can be
 found in the help files `help(fit_bi_lcsm)`.
 
-| Coupling specification   | Description                                           |
-| :----------------------- | :---------------------------------------------------- |
-| coupling\_piecewise      | Piecewise coupling parameters                         |
-| coupling\_piecewise\_num | Changepoint of piecewise coupling parameters          |
-| delta\_con\_xy           | Change score x (t) determined by true score y (t)     |
-| delta\_con\_yx           | Change score y (t) determined by true score x (t)     |
-| delta\_lag\_xy           | Change score x (t) determined by true score y (t-1)   |
-| delta\_lag\_yx           | Change score y (t) determined by true score x (t-1)   |
-| xi\_con\_xy              | Change score x (t) determined by change score y (t)   |
-| xi\_con\_yx              | Change score y (t) determined by change score x (t)   |
-| xi\_lag\_xy              | Change score x (t) determined by change score y (t-1) |
-| xi\_lag\_yx              | Change score y (t) determined by change score x (t-1) |
+| Coupling specification | Description                                           |
+|:-----------------------|:------------------------------------------------------|
+| coupling_piecewise     | Piecewise coupling parameters                         |
+| coupling_piecewise_num | Changepoint of piecewise coupling parameters          |
+| delta_con_xy           | Change score x (t) determined by true score y (t)     |
+| delta_con_yx           | Change score y (t) determined by true score x (t)     |
+| delta_lag_xy           | Change score x (t) determined by true score y (t-1)   |
+| delta_lag_yx           | Change score y (t) determined by true score x (t-1)   |
+| xi_con_xy              | Change score x (t) determined by change score y (t)   |
+| xi_con_yx              | Change score y (t) determined by change score x (t)   |
+| xi_lag_xy              | Change score x (t) determined by change score y (t-1) |
+| xi_lag_yx              | Change score y (t) determined by change score x (t-1) |
 
 ``` r
 fit_bi_lcsm(data = data_bi_lcsm, 
@@ -454,23 +448,23 @@ fit_bi_lcsm(data = data_bi_lcsm,
                            phi = TRUE),
             coupling = list(delta_lag_xy = TRUE, 
                             xi_lag_yx = TRUE))
-#> lavaan 0.6-6 ended normally after 118 iterations
+#> lavaan 0.6.13 ended normally after 114 iterations
 #> 
 #>   Estimator                                         ML
 #>   Optimization method                           NLMINB
-#>   Number of free parameters                         87
+#>   Number of model parameters                        87
 #>   Number of equality constraints                    65
-#>                                                       
+#> 
 #>   Number of observations                           500
 #>   Number of missing patterns                       210
-#>                                                       
+#> 
 #> Model Test User Model:
-#>                                                Standard      Robust
-#>   Test Statistic                                191.851     193.021
-#>   Degrees of freedom                                208         208
-#>   P-value (Chi-square)                            0.782       0.764
-#>   Scaling correction factor                                   0.994
-#>        Yuan-Bentler correction (Mplus variant)
+#>                                               Standard      Scaled
+#>   Test Statistic                               191.851     193.021
+#>   Degrees of freedom                               208         208
+#>   P-value (Chi-square)                           0.782       0.764
+#>   Scaling correction factor                                  0.994
+#>     Yuan-Bentler correction (Mplus variant)
 ```
 
 ### Extract fit statistics and parmeters
@@ -478,11 +472,11 @@ fit_bi_lcsm(data = data_bi_lcsm,
 The main underlying functions to extract parameters and fit statistics
 come from the `broom` package: `broom::tidy()` and `broom::glance()`.
 The functions `extract_param()` and `extract_fit()` offer some tools
-that I find helpful when running LCS models in R, for example:
+that I find helpful when running LCSMs in R, for example:
 
-  - `extract_param()`: only one row per estimated parameter,
-  - `extract_fit()`: fit statistics for multiple `lavaan` objects can be
-    extracted.
+- `extract_param()`: only one row per estimated parameter,
+- `extract_fit()`: fit statistics for multiple lavaan objects can be
+  extracted.
 
 A table of the description of all parameters that can be estimated is
 shown [here](#overview-of-estimated-lcs-model-parameters).
@@ -511,64 +505,63 @@ param_bi_lcsm_01 <- extract_param(bi_lcsm_01, printp = TRUE)[ , 1:7]
 kable(param_bi_lcsm_01, digits = 3)
 ```
 
-| label          | estimate | std.error | statistic | p.value | conf.low | conf.high |
-| :------------- | -------: | --------: | --------: | :------ | -------: | --------: |
-| gamma\_lx1     |   21.066 |     0.036 |   588.187 | \< .001 |   20.996 |    21.136 |
-| sigma2\_lx1    |    0.493 |     0.037 |    13.485 | \< .001 |    0.421 |     0.564 |
-| sigma2\_ux     |    0.201 |     0.004 |    45.301 | \< .001 |    0.192 |     0.210 |
-| alpha\_g2      |  \-0.309 |     0.053 |   \-5.834 | \< .001 |  \-0.413 |   \-0.205 |
-| sigma2\_g2     |    0.395 |     0.028 |    14.330 | \< .001 |    0.341 |     0.449 |
-| sigma\_g2lx1   |    0.155 |     0.022 |     7.017 | \< .001 |    0.112 |     0.198 |
-| beta\_x        |  \-0.106 |     0.003 |  \-30.818 | \< .001 |  \-0.113 |   \-0.099 |
-| gamma\_ly1     |    5.025 |     0.029 |   172.786 | \< .001 |    4.968 |     5.082 |
-| sigma2\_ly1    |    0.208 |     0.019 |    10.860 | \< .001 |    0.171 |     0.246 |
-| sigma2\_uy     |    0.193 |     0.005 |    39.698 | \< .001 |    0.183 |     0.202 |
-| alpha\_j2      |  \-0.203 |     0.039 |   \-5.217 | \< .001 |  \-0.279 |   \-0.127 |
-| sigma2\_j2     |    0.093 |     0.008 |    11.766 | \< .001 |    0.077 |     0.108 |
-| sigma\_j2ly1   |    0.017 |     0.008 |     2.156 | .031    |    0.002 |     0.032 |
-| beta\_y        |  \-0.197 |     0.005 |  \-39.562 | \< .001 |  \-0.207 |   \-0.187 |
-| phi\_y         |    0.144 |     0.029 |     4.963 | \< .001 |    0.087 |     0.201 |
-| sigma\_su      |    0.009 |     0.003 |     2.581 | .01     |    0.002 |     0.015 |
-| sigma\_ly1lx1  |    0.185 |     0.021 |     8.905 | \< .001 |    0.144 |     0.225 |
-| sigma\_g2ly1   |    0.072 |     0.016 |     4.437 | \< .001 |    0.040 |     0.104 |
-| sigma\_j2lx1   |    0.093 |     0.012 |     7.916 | \< .001 |    0.070 |     0.117 |
-| sigma\_j2g2    |    0.005 |     0.012 |     0.463 | .643    |  \-0.018 |     0.029 |
-| delta\_lag\_xy |    0.140 |     0.006 |    23.837 | \< .001 |    0.128 |     0.152 |
-| xi\_lag\_yx    |    0.360 |     0.037 |     9.634 | \< .001 |    0.287 |     0.433 |
+| label        | estimate | std.error | statistic | p.value | std.lv | std.all |
+|:-------------|---------:|----------:|----------:|:--------|-------:|--------:|
+| gamma_lx1    |   21.066 |     0.036 |   588.187 | \< .001 | 30.014 |  30.014 |
+| sigma2_lx1   |    0.493 |     0.037 |    13.485 | \< .001 |  1.000 |   1.000 |
+| sigma2_ux    |    0.201 |     0.004 |    45.301 | \< .001 |  0.201 |   0.290 |
+| alpha_g2     |   -0.309 |     0.053 |    -5.834 | \< .001 | -0.492 |  -0.492 |
+| sigma2_g2    |    0.395 |     0.028 |    14.330 | \< .001 |  1.000 |   1.000 |
+| sigma_g2lx1  |    0.155 |     0.022 |     7.017 | \< .001 |  0.351 |   0.351 |
+| beta_x       |   -0.106 |     0.003 |   -30.818 | \< .001 | -0.120 |  -0.120 |
+| gamma_ly1    |    5.025 |     0.029 |   172.786 | \< .001 | 11.009 |  11.009 |
+| sigma2_ly1   |    0.208 |     0.019 |    10.860 | \< .001 |  1.000 |   1.000 |
+| sigma2_uy    |    0.193 |     0.005 |    39.698 | \< .001 |  0.193 |   0.481 |
+| alpha_j2     |   -0.203 |     0.039 |    -5.217 | \< .001 | -0.666 |  -0.666 |
+| sigma2_j2    |    0.093 |     0.008 |    11.766 | \< .001 |  1.000 |   1.000 |
+| sigma_j2ly1  |    0.017 |     0.008 |     2.156 | .031    |  0.122 |   0.122 |
+| beta_y       |   -0.197 |     0.005 |   -39.562 | \< .001 | -0.293 |  -0.293 |
+| phi_y        |    0.144 |     0.029 |     4.963 | \< .001 |  0.126 |   0.126 |
+| sigma_su     |    0.009 |     0.003 |     2.581 | .01     |  0.009 |   0.044 |
+| sigma_ly1lx1 |    0.185 |     0.021 |     8.905 | \< .001 |  0.577 |   0.577 |
+| sigma_g2ly1  |    0.072 |     0.016 |     4.437 | \< .001 |  0.251 |   0.251 |
+| sigma_j2lx1  |    0.093 |     0.012 |     7.916 | \< .001 |  0.437 |   0.437 |
+| sigma_j2g2   |    0.005 |     0.012 |     0.463 | .643    |  0.029 |   0.029 |
+| delta_lag_xy |    0.140 |     0.006 |    23.837 | \< .001 |  0.103 |   0.103 |
+| xi_lag_yx    |    0.360 |     0.037 |     9.634 | \< .001 |  0.640 |   0.640 |
 
-### Plot simplified path diagrams of LCS models
+### Plot simplified path diagrams of LCSMs
 
 This function is work in progress and can only plot univariate and
-bivariate LCS models that were specified with `fit_uni_lcsm()` or
-`fit_bi_lcsm()`. Modified LCS models will probably return errors as the
+bivariate LCSMs that were specified with `fit_uni_lcsm()` or
+`fit_bi_lcsm()`. Modified LCSMs will probably return errors as the
 layout matrix that gets created by this plot function only supports the
 specifications that can be modelled with this package. The input
 arguments for plotting a simplified path diagram are:
 
-  - the estimated lavaan object `lavaan_object`,
-  - the `lavaan_syntax` and ,
-  - `lcsm` indicating whether the LCS model is “univariate” or
-    “bivariate”
+- the estimated lavaan object `lavaan_object`,
+- the `lavaan_syntax` and ,
+- `lcsm` indicating whether the LCSMs is “univariate” or “bivariate”
 
 Optional arguments can be used to change the look of the plot, for
 example:
 
-  - `lcsm_colours` can be used to highlight the different parts of the
-    latent change score model
-      - white: observed scores
-      - green: latent true scores
-      - blue: latent change scores
-      - yellow: latent change scores
+- `lcsm_colours` can be used to highlight the different parts of the
+  latent change score model
+  - white: observed scores
+  - green: latent true scores
+  - blue: latent change scores
+  - yellow: latent change scores
 
 Further arguments can be passed on to `semPlot::semPaths()`, for
 example:
 
-  - `what`, **“path”** to show unweighted gray edges, **“par”** to show
-    parameter estimates as weighted (green/red) edges  
-  - `whatLabels`, **“label”** to show edege names as label or **“est”**
-    for parameter estimates, **“hide”** to hide edge labels
+- `what`, **“path”** to show unweighted gray edges, **“par”** to show
+  parameter estimates as weighted (green/red) edges  
+- `whatLabels`, **“label”** to show edege names as label or **“est”**
+  for parameter estimates, **“hide”** to hide edge labels
 
-#### Univariate LCS model
+#### Univariate LCSM
 
 ``` r
 # Fit bivariate lcsm and save the results 
@@ -595,15 +588,11 @@ plot_lcsm(lavaan_object = uni_lavaan_results,
           edge.label.cex = .9,  
           lcsm_colours = TRUE,
           lcsm = "univariate")
-#> Registered S3 methods overwritten by 'huge':
-#>   method    from   
-#>   plot.sim  BDgraph
-#>   print.sim BDgraph
 ```
 
 <img src="man/figures/README-unnamed-chunk-9-1.png" width="100%" />
 
-#### Bivariate LCS model
+#### Bivariate LCSM
 
 ``` r
 # Fit bivariate lcsm and save the results 
@@ -664,11 +653,11 @@ sim_uni_lcsm(timepoints = 5,
              sample.nobs = 1000,
              na_pct = 0.3)
 #> Parameter estimates for the data simulation are taken from the argument 'model_param'.
-#> Warning: The following parameters are specified in LCS model but no parameter estimates have been entered in 'model_param':
+#> Warning: The following parameters are specified in the LCSM but no parameter estimates have been entered in 'model_param':
 #> -  alpha_g2
 #> -  sigma2_g2
 #> -  sigma_g2lx1
-#> # A tibble: 1,000 x 6
+#> # A tibble: 1,000 × 6
 #>       id    x1    x2    x3    x4    x5
 #>    <int> <dbl> <dbl> <dbl> <dbl> <dbl>
 #>  1     1  21.8  20.4  18.0  15.3  NA  
@@ -721,10 +710,9 @@ simsyntax <- sim_bi_lcsm(timepoints = 5,
 ```
 
 <details>
-
-<summary>Click here to see the lavaan syntax specified in
-<code>simsyntax</code>.</summary>
-
+<summary>
+Click here to see the lavaan syntax specified in <code>simsyntax</code>.
+</summary>
 <p>
 
     # Specify parameters for construct x ----
@@ -886,80 +874,4 @@ simsyntax <- sim_bi_lcsm(timepoints = 5,
     dy5 ~ 0.4 * dx4 
 
 </p>
-
 </details>
-
-## Overview of estimated LCS model parameters
-
-### Univariate LCS models
-
-Depending on the specified model, the following parameters can be
-estimated for **univariate** LCS models:
-
-| Parameter    | Description                                                    |
-| :----------- | :------------------------------------------------------------- |
-| gamma\_lx1   | Mean of latent true scores x (Intercept)                       |
-| sigma2\_lx1  | Variance of latent true scores x                               |
-| sigma2\_ux   | Variance of observed scores x                                  |
-| alpha\_g2    | Mean of change factor (g2)                                     |
-| alpha\_g3    | Mean of change factor (g3)                                     |
-| sigma2\_g2   | Variance of change factor (g2)                                 |
-| sigma2\_g3   | Variance of change factor (g3)                                 |
-| sigma\_g2lx1 | Covariance of change factor (g2) with the initial true score x |
-| sigma\_g3lx1 | Covariance of change factor (g3) with the initial true score x |
-| sigma\_g2g3  | Covariance of change factors within construct x                |
-| beta\_x      | Proportional change x                                          |
-| phi\_x       | Autoregression of change scores x                              |
-
-### Bivariate LCS models
-
-For bivariate LCS models, estimated parameters can be categorised into
-(1) **Construct X**, (2) **Construct Y**, and (3) **Coupling between X
-and Y**.
-
-| Parameter           | Description                                                            |
-| :------------------ | :--------------------------------------------------------------------- |
-| **Construct X**     |                                                                        |
-| gamma\_lx1          | Mean of latent true scores x (Intercept)                               |
-| sigma2\_lx1         | Variance of latent true scores x                                       |
-| sigma2\_ux          | Variance of observed scores x                                          |
-| alpha\_g2           | Mean of change factor (g2)                                             |
-| alpha\_g3           | Mean of change factor (g3)                                             |
-| sigma2\_g2          | Variance of change factor (g2)                                         |
-| sigma2\_g3          | Variance of change factor (g3)                                         |
-| beta\_x             | Proportional change x                                                  |
-| sigma\_g2lx1        | Covariance of change factor (g2) with the initial true score x (lx1)   |
-| sigma\_g3lx1        | Covariance of change factor (g3) with the initial true score x (lx1)   |
-| sigma\_g2g3         | Covariance of change factors within construct x                        |
-| phi\_x              | Autoregression of change scores x                                      |
-| **Construct Y**     |                                                                        |
-| gamma\_ly1          | Mean of latent true scores y (Intercept)                               |
-| sigma2\_ly1         | Variance of latent true scores y                                       |
-| sigma2\_uy          | Variance of observed scores y                                          |
-| alpha\_j2           | Mean of change factor (j2)                                             |
-| alpha\_j3           | Mean of change factor (j3)                                             |
-| sigma2\_j2          | Variance of change factor (j2)                                         |
-| sigma2\_j3          | Variance of change factor (j3)                                         |
-| beta\_y             | Proportional change y                                                  |
-| sigma\_j2ly1        | Covariance of change factor (j2) with the initial true score y (ly1)   |
-| sigma\_j3ly1        | Covariance of change factor (j3) with the initial true score y (ly1)   |
-| sigma\_j2j3         | Covariance of change factors within construct y                        |
-| phi\_y              | Autoregression of change scores y                                      |
-| **Coupeling X & Y** |                                                                        |
-| sigma\_su           | Covariance of residuals x and y                                        |
-| sigma\_ly1lx1       | Covariance of intercepts x and y                                       |
-| sigma\_g2ly1        | Covariance of change factor x (g2) with the initial true score y (ly1) |
-| sigma\_g3ly1        | Covariance of change factor x (g3) with the initial true score y (ly1) |
-| sigma\_j2lx1        | Covariance of change factor y (j2) with the initial true score x (lx1) |
-| sigma\_j3lx1        | Covariance of change factor y (j3) with the initial true score x (lx1) |
-| sigma\_j2g2         | Covariance of change factors y (j2) and x (g2)                         |
-| sigma\_j2g3         | Covariance of change factors y (j2) and x (g3)                         |
-| sigma\_j3g2         | Covariance of change factors y (j3) and x (g2)                         |
-| delta\_con\_xy      | Change score x (t) determined by true score y (t)                      |
-| delta\_con\_yx      | Change score y (t) determined by true score x (t)                      |
-| delta\_lag\_xy      | Change score x (t) determined by true score y (t-1)                    |
-| delta\_lag\_yx      | Change score y (t) determined by true score x (t-1)                    |
-| xi\_con\_xy         | Change score x (t) determined by change score y (t)                    |
-| xi\_con\_yx         | Change score y (t) determined by change score x (t)                    |
-| xi\_lag\_xy         | Change score x (t) determined by change score y (t-1)                  |
-| xi\_lag\_yx         | Change score y (t) determined by change score x (t-1)                  |

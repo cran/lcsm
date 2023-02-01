@@ -11,6 +11,7 @@ fit_bi_lcsm(
   model_x,
   model_y,
   coupling,
+  add = NULL,
   mimic = "Mplus",
   estimator = "MLR",
   missing = "FIML",
@@ -55,15 +56,17 @@ fit_bi_lcsm(
 \item{\code{xi_yx}}{ (Change score x predicting subsequent change score y)}.
 }}
 
-\item{mimic}{See \link[lavaan]{lavaan}.}
+\item{add}{String, lavaan syntax to be added to the model}
 
-\item{estimator}{See \link[lavaan]{lavaan}.}
+\item{mimic}{See \code{mimic} argument in \link[lavaan]{lavOptions}.}
 
-\item{missing}{See \link[lavaan]{lavaan}.}
+\item{estimator}{See \code{estimator} argument in \link[lavaan]{lavOptions}.}
+
+\item{missing}{See \code{missing} argument in \link[lavaan]{lavOptions}.}
 
 \item{return_lavaan_syntax}{Logical, if TRUE return the lavaan syntax used for simulating data. To make it look beautiful use the function \link[base]{cat}.}
 
-\item{...}{Additional arguments to be passed to \link[lavaan]{lavaan}.}
+\item{...}{Additional arguments to be passed to \link[lavaan]{lavOptions}.}
 }
 \value{
 This function returns a lavaan class object.
@@ -87,12 +90,12 @@ fit_bi_lcsm(data = data_bi_lcsm,
                             )
 }
 \references{
-Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \url{https://doi.org/10.1080/10705511.2012.713275}.
+Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \doi{10.1146/annurev.psych.60.110707.163612}.
 
 Grimm, K. J., Ram, N., & Estabrook, R. (2017). Growth Modeling—Structural Equation and Multilevel Modeling Approaches. New York: The Guilford Press.
 
-McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \url{https://doi.org/10.1146/annurev.psych.60.110707.163612}.
+McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \doi{10.1146/annurev.psych.60.110707.163612}.
 
 Yves Rosseel (2012). lavaan: An R Package for Structural Equation Modeling. Journal of Statistical Software, 48(2), 1-36.
-\url{http://www.jstatsoft.org/v48/i02/}.
+\doi{10.18637/jss.v048.i02}.
 }

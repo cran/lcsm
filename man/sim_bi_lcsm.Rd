@@ -15,6 +15,7 @@ sim_bi_lcsm(
   sample.nobs = 500,
   na_x_pct = 0,
   na_y_pct = 0,
+  seed = NULL,
   ...,
   var_x = "x",
   var_y = "y",
@@ -28,7 +29,7 @@ sim_bi_lcsm(
 
 \item{model_x}{See \link[lcsm]{specify_bi_lcsm}}
 
-\item{model_x_param}{List, specifying parameter estimates for the LCS model that has been specified in the argument '\code{model_x}':
+\item{model_x_param}{List, specifying parameter estimates for the LCSM that has been specified in the argument '\code{model_x}':
 \itemize{
 \item{\strong{\code{gamma_lx1}}}: Mean of latent true scores x (Intercept),
 \item{\strong{\code{sigma2_lx1}}}: Variance of latent true scores x,
@@ -45,7 +46,7 @@ sim_bi_lcsm(
 
 \item{model_y}{See \link[lcsm]{specify_bi_lcsm}}
 
-\item{model_y_param}{List, specifying parameter estimates for the LCS model that has been specified in the argument '\code{model_y}':
+\item{model_y_param}{List, specifying parameter estimates for the LCSM that has been specified in the argument '\code{model_y}':
 \itemize{
 \item{\strong{\code{gamma_ly1}}}: Mean of latent true scores y (Intercept),
 \item{\strong{\code{sigma2_ly1}}}: Variance of latent true scores y,
@@ -85,9 +86,11 @@ sim_bi_lcsm(
 
 \item{sample.nobs}{Numeric, number of cases to be simulated, see \link[lcsm]{specify_uni_lcsm}}
 
-\item{na_x_pct}{Numeric, percentage of random missing values in the simulated dataset [0,1]}
+\item{na_x_pct}{Numeric, percentage of random missing values in the simulated dataset (0 to 1)}
 
-\item{na_y_pct}{Numeric, percentage of random missing values in the simulated dataset [0,1]}
+\item{na_y_pct}{Numeric, percentage of random missing values in the simulated dataset (0 to 1)}
+
+\item{seed}{Set seed for data simulation, see \link[lavaan]{simulateData}}
 
 \item{...}{Arguments to be passed on to \link[lavaan]{simulateData}}
 
@@ -108,7 +111,7 @@ tibble
 This function simulate data from bivariate latent change score model parameter estimates using \link[lavaan]{simulateData}.
 }
 \examples{
-# Simulate data from bivariate LCS model parameters 
+# Simulate data from bivariate LCSM parameters 
 sim_bi_lcsm(timepoints = 12, 
             na_x_pct = .05,
             na_y_pct = .1,
@@ -142,14 +145,14 @@ sim_bi_lcsm(timepoints = 12,
 
 }
 \references{
-Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \url{https://doi.org/10.1080/10705511.2012.713275}.
+Ghisletta, P., & McArdle, J. J. (2012). Latent Curve Models and Latent Change Score Models Estimated in R. Structural Equation Modeling: A Multidisciplinary Journal, 19(4), 651–682. \doi{10.1080/10705511.2012.713275}.
 
 Grimm, K. J., Ram, N., & Estabrook, R. (2017). Growth Modeling—Structural Equation and Multilevel Modeling Approaches. New York: The Guilford Press.
 
-Kievit, R. A., Brandmaier, A. M., Ziegler, G., van Harmelen, A.-L., de Mooij, S. M. M., Moutoussis, M., … Dolan, R. J. (2018). Developmental cognitive neuroscience using latent change score models: A tutorial and applications. Developmental Cognitive Neuroscience, 33, 99–117. \url{https://doi.org/10.1016/j.dcn.2017.11.007}.
+Kievit, R. A., Brandmaier, A. M., Ziegler, G., van Harmelen, A.-L., de Mooij, S. M. M., Moutoussis, M., … Dolan, R. J. (2018). Developmental cognitive neuroscience using latent change score models: A tutorial and applications. Developmental Cognitive Neuroscience, 33, 99–117. \doi{10.1016/j.dcn.2017.11.007}.
 
-McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \url{https://doi.org/10.1146/annurev.psych.60.110707.163612}.
+McArdle, J. J. (2009). Latent variable modeling of differences and changes with longitudinal data. Annual Review of Psychology, 60(1), 577–605. \doi{10.1146/annurev.psych.60.110707.163612}.
 
 Yves Rosseel (2012). lavaan: An R Package for Structural Equation Modeling. Journal of Statistical Software, 48(2), 1-36.
-\url{http://www.jstatsoft.org/v48/i02/}.
+\doi{10.18637/jss.v048.i02}.
 }
