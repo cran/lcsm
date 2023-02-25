@@ -341,10 +341,10 @@ LCSMs</h1>
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lcsm)</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-13</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(lcsm)</span>
+<span id="cb1-2"><a href="#cb1-2" tabindex="-1"></a><span class="fu">library</span>(lavaan)</span>
+<span id="cb1-3"><a href="#cb1-3" tabindex="-1"></a><span class="co">#&gt; This is lavaan 0.6-13</span></span>
+<span id="cb1-4"><a href="#cb1-4" tabindex="-1"></a><span class="co">#&gt; lavaan is FREE software! Please report any bugs.</span></span></code></pre></div>
 <p>The main underlying functions to extract parameters and fit
 statistics come from the <code>broom</code> package:
 <code>broom::tidy()</code> and <code>broom::glance()</code>. The
@@ -359,46 +359,46 @@ parameter,</li>
 </ul>
 <div id="create-univariate-models" class="section level2">
 <h2>Create univariate models</h2>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># First fit some latent change score models</span></span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="co"># No change model</span></span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>uni_lcsm_01 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   239</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># Constant change only model</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>uni_lcsm_02 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">FALSE</span>, </span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   239</span></span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a><span class="co"># Constant change and proportional change (Dual change model)</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>uni_lcsm_03 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
-<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   239</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a><span class="co"># First fit some latent change score models</span></span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a></span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a><span class="co"># No change model</span></span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>uni_lcsm_01 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-7"><a href="#cb2-7" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-8"><a href="#cb2-8" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb2-9"><a href="#cb2-9" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-10"><a href="#cb2-10" tabindex="-1"></a><span class="co">#&gt;   239</span></span>
+<span id="cb2-11"><a href="#cb2-11" tabindex="-1"></a><span class="co"># Constant change only model</span></span>
+<span id="cb2-12"><a href="#cb2-12" tabindex="-1"></a>uni_lcsm_02 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
+<span id="cb2-13"><a href="#cb2-13" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-14"><a href="#cb2-14" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2-15"><a href="#cb2-15" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">FALSE</span>, </span>
+<span id="cb2-16"><a href="#cb2-16" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb2-17"><a href="#cb2-17" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-18"><a href="#cb2-18" tabindex="-1"></a><span class="co">#&gt;   239</span></span>
+<span id="cb2-19"><a href="#cb2-19" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" tabindex="-1"></a><span class="co"># Constant change and proportional change (Dual change model)</span></span>
+<span id="cb2-21"><a href="#cb2-21" tabindex="-1"></a>uni_lcsm_03 <span class="ot">&lt;-</span> <span class="fu">fit_uni_lcsm</span>(<span class="at">data =</span> data_uni_lcsm, </span>
+<span id="cb2-22"><a href="#cb2-22" tabindex="-1"></a>                            <span class="at">var =</span> <span class="fu">c</span>(<span class="st">&quot;x1&quot;</span>, <span class="st">&quot;x2&quot;</span>, <span class="st">&quot;x3&quot;</span>, <span class="st">&quot;x4&quot;</span>, <span class="st">&quot;x5&quot;</span>),</span>
+<span id="cb2-23"><a href="#cb2-23" tabindex="-1"></a>                            <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2-24"><a href="#cb2-24" tabindex="-1"></a>                                         <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2-25"><a href="#cb2-25" tabindex="-1"></a>                                         <span class="at">phi =</span> <span class="cn">FALSE</span>))</span>
+<span id="cb2-26"><a href="#cb2-26" tabindex="-1"></a><span class="co">#&gt; Warning in lav_data_full(data = data, group = group, cluster = cluster, : lavaan </span><span class="al">WARNING</span><span class="co">: some cases are empty and will be ignored:</span></span>
+<span id="cb2-27"><a href="#cb2-27" tabindex="-1"></a><span class="co">#&gt;   239</span></span></code></pre></div>
 </div>
 <div id="extract-fit-statistics" class="section level2">
 <h2>Extract fit statistics</h2>
 <p>This function takes the <code>lavaan</code> objects as input and
 returns some fit statistics. More fit statistics can be returned using
 the argument <code>details = TRUE</code>.</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Extract fit statistics</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>fit_uni_lcsm <span class="ot">&lt;-</span> <span class="fu">extract_fit</span>(uni_lcsm_01, uni_lcsm_02, uni_lcsm_03)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of parameter estimates</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fit_uni_lcsm, </span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Parameter estimates for bivariate LCSM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># Extract fit statistics</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a>fit_uni_lcsm <span class="ot">&lt;-</span> <span class="fu">extract_fit</span>(uni_lcsm_01, uni_lcsm_02, uni_lcsm_03)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co"># Print table of parameter estimates</span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(fit_uni_lcsm, </span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a>             <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Parameter estimates for bivariate LCSM&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Parameter estimates for bivariate LCSM</caption>
 <thead>
@@ -449,13 +449,13 @@ the argument <code>details = TRUE</code>.</p>
 </div>
 <div id="extract-parameters" class="section level2">
 <h2>Extract parameters</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Now extract parameter estimates</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>param_uni_lcsm_02 <span class="ot">&lt;-</span> <span class="fu">extract_param</span>(uni_lcsm_03, <span class="at">printp =</span> <span class="cn">TRUE</span>)</span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Print table of parameter estimates</span></span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(param_uni_lcsm_02, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>             <span class="at">digits =</span> <span class="dv">3</span>, </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Parameter estimates for bivariate LCSM&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a><span class="co"># Now extract parameter estimates</span></span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>param_uni_lcsm_02 <span class="ot">&lt;-</span> <span class="fu">extract_param</span>(uni_lcsm_03, <span class="at">printp =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a></span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a><span class="co"># Print table of parameter estimates</span></span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>knitr<span class="sc">::</span><span class="fu">kable</span>(param_uni_lcsm_02, </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>             <span class="at">digits =</span> <span class="dv">3</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>             <span class="at">caption =</span> <span class="st">&quot;Parameter estimates for bivariate LCSM&quot;</span>)</span></code></pre></div>
 <table>
 <caption>Parameter estimates for bivariate LCSM</caption>
 <colgroup>

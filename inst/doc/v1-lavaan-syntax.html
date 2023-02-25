@@ -341,668 +341,668 @@ score models</h1>
 
 
 
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lcsm)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" tabindex="-1"></a><span class="fu">library</span>(lcsm)</span></code></pre></div>
 <div id="univariate-lcsm-syntax" class="section level1">
 <h1>Univariate LCSM syntax</h1>
 <p>The example below shows how to specify a generic univariate latent
 change score model using the function
 <code>specify_uni_lcsm()</code>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>uni_lcsm_syntax <span class="ot">&lt;-</span> <span class="fu">specify_uni_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>,</span>
-<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">var =</span> <span class="st">&quot;x&quot;</span>,  </span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">change_letter =</span> <span class="st">&quot;g&quot;</span>,</span>
-<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">phi =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(uni_lcsm_syntax)</span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
-<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
-<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
-<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
-<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
-<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
-<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
-<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
-<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
-<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
-<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
-<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
-<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
-<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
-<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
-<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
-<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
-<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
-<span id="cb3-64"><a href="#cb3-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
-<span id="cb3-65"><a href="#cb3-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
-<span id="cb3-66"><a href="#cb3-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb3-67"><a href="#cb3-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
-<span id="cb3-68"><a href="#cb3-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
-<span id="cb3-69"><a href="#cb3-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4</span></span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" tabindex="-1"></a>uni_lcsm_syntax <span class="ot">&lt;-</span> <span class="fu">specify_uni_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>,</span>
+<span id="cb2-2"><a href="#cb2-2" tabindex="-1"></a>                                    <span class="at">var =</span> <span class="st">&quot;x&quot;</span>,  </span>
+<span id="cb2-3"><a href="#cb2-3" tabindex="-1"></a>                                    <span class="at">change_letter =</span> <span class="st">&quot;g&quot;</span>,</span>
+<span id="cb2-4"><a href="#cb2-4" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2-5"><a href="#cb2-5" tabindex="-1"></a>                                                 <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb2-6"><a href="#cb2-6" tabindex="-1"></a>                                                 <span class="at">phi =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
+<span id="cb3-2"><a href="#cb3-2" tabindex="-1"></a><span class="fu">cat</span>(uni_lcsm_syntax)</span>
+<span id="cb3-3"><a href="#cb3-3" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb3-4"><a href="#cb3-4" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
+<span id="cb3-5"><a href="#cb3-5" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
+<span id="cb3-6"><a href="#cb3-6" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
+<span id="cb3-7"><a href="#cb3-7" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
+<span id="cb3-8"><a href="#cb3-8" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
+<span id="cb3-9"><a href="#cb3-9" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb3-10"><a href="#cb3-10" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
+<span id="cb3-11"><a href="#cb3-11" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
+<span id="cb3-12"><a href="#cb3-12" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
+<span id="cb3-13"><a href="#cb3-13" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
+<span id="cb3-14"><a href="#cb3-14" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
+<span id="cb3-15"><a href="#cb3-15" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb3-16"><a href="#cb3-16" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
+<span id="cb3-17"><a href="#cb3-17" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
+<span id="cb3-18"><a href="#cb3-18" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
+<span id="cb3-19"><a href="#cb3-19" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
+<span id="cb3-20"><a href="#cb3-20" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
+<span id="cb3-21"><a href="#cb3-21" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb3-22"><a href="#cb3-22" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
+<span id="cb3-23"><a href="#cb3-23" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
+<span id="cb3-24"><a href="#cb3-24" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
+<span id="cb3-25"><a href="#cb3-25" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
+<span id="cb3-26"><a href="#cb3-26" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
+<span id="cb3-27"><a href="#cb3-27" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb3-28"><a href="#cb3-28" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
+<span id="cb3-29"><a href="#cb3-29" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
+<span id="cb3-30"><a href="#cb3-30" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
+<span id="cb3-31"><a href="#cb3-31" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
+<span id="cb3-32"><a href="#cb3-32" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
+<span id="cb3-33"><a href="#cb3-33" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb3-34"><a href="#cb3-34" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
+<span id="cb3-35"><a href="#cb3-35" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
+<span id="cb3-36"><a href="#cb3-36" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
+<span id="cb3-37"><a href="#cb3-37" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
+<span id="cb3-38"><a href="#cb3-38" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb3-39"><a href="#cb3-39" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
+<span id="cb3-40"><a href="#cb3-40" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
+<span id="cb3-41"><a href="#cb3-41" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
+<span id="cb3-42"><a href="#cb3-42" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
+<span id="cb3-43"><a href="#cb3-43" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb3-44"><a href="#cb3-44" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
+<span id="cb3-45"><a href="#cb3-45" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
+<span id="cb3-46"><a href="#cb3-46" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
+<span id="cb3-47"><a href="#cb3-47" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
+<span id="cb3-48"><a href="#cb3-48" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb3-49"><a href="#cb3-49" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
+<span id="cb3-50"><a href="#cb3-50" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
+<span id="cb3-51"><a href="#cb3-51" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
+<span id="cb3-52"><a href="#cb3-52" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
+<span id="cb3-53"><a href="#cb3-53" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb3-54"><a href="#cb3-54" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
+<span id="cb3-55"><a href="#cb3-55" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb3-56"><a href="#cb3-56" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
+<span id="cb3-57"><a href="#cb3-57" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb3-58"><a href="#cb3-58" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
+<span id="cb3-59"><a href="#cb3-59" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb3-60"><a href="#cb3-60" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
+<span id="cb3-61"><a href="#cb3-61" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb3-62"><a href="#cb3-62" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
+<span id="cb3-63"><a href="#cb3-63" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
+<span id="cb3-64"><a href="#cb3-64" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
+<span id="cb3-65"><a href="#cb3-65" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
+<span id="cb3-66"><a href="#cb3-66" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb3-67"><a href="#cb3-67" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
+<span id="cb3-68"><a href="#cb3-68" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
+<span id="cb3-69"><a href="#cb3-69" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4</span></span></code></pre></div>
 <div id="add-lavaan-syntax" class="section level2">
 <h2>Add lavaan syntax</h2>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>uni_lcsm_syntax_add <span class="ot">&lt;-</span> <span class="fu">specify_uni_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">3</span>,</span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">var =</span> <span class="st">&quot;x&quot;</span>,  </span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">change_letter =</span> <span class="st">&quot;g&quot;</span>,</span>
-<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">add =</span> <span class="st">&quot;# JUST ANOTHER COMMENT&quot;</span>,</span>
-<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>                                                 <span class="at">phi =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
-<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
-<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(uni_lcsm_syntax_add)</span>
-<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
-<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
-<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
-<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
-<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
-<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
-<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
-<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
-<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
-<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
-<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
-<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
-<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
-<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
-<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
-<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
-<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
-<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
-<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
-<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
-<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
-<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
-<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
-<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 </span></span>
-<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
-<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
-<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
-<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
-<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
-<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
-<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ---- Additaional Model Specifications ----</span></span>
-<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # JUST ANOTHER COMMENT</span></span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" tabindex="-1"></a>uni_lcsm_syntax_add <span class="ot">&lt;-</span> <span class="fu">specify_uni_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">3</span>,</span>
+<span id="cb4-2"><a href="#cb4-2" tabindex="-1"></a>                                    <span class="at">var =</span> <span class="st">&quot;x&quot;</span>,  </span>
+<span id="cb4-3"><a href="#cb4-3" tabindex="-1"></a>                                    <span class="at">change_letter =</span> <span class="st">&quot;g&quot;</span>,</span>
+<span id="cb4-4"><a href="#cb4-4" tabindex="-1"></a>                                    <span class="at">add =</span> <span class="st">&quot;# JUST ANOTHER COMMENT&quot;</span>,</span>
+<span id="cb4-5"><a href="#cb4-5" tabindex="-1"></a>                                    <span class="at">model =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb4-6"><a href="#cb4-6" tabindex="-1"></a>                                                 <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb4-7"><a href="#cb4-7" tabindex="-1"></a>                                                 <span class="at">phi =</span> <span class="cn">TRUE</span>))</span></code></pre></div>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
+<span id="cb5-2"><a href="#cb5-2" tabindex="-1"></a><span class="fu">cat</span>(uni_lcsm_syntax_add)</span>
+<span id="cb5-3"><a href="#cb5-3" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb5-4"><a href="#cb5-4" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
+<span id="cb5-5"><a href="#cb5-5" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
+<span id="cb5-6"><a href="#cb5-6" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
+<span id="cb5-7"><a href="#cb5-7" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb5-8"><a href="#cb5-8" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
+<span id="cb5-9"><a href="#cb5-9" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
+<span id="cb5-10"><a href="#cb5-10" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
+<span id="cb5-11"><a href="#cb5-11" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb5-12"><a href="#cb5-12" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
+<span id="cb5-13"><a href="#cb5-13" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
+<span id="cb5-14"><a href="#cb5-14" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
+<span id="cb5-15"><a href="#cb5-15" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb5-16"><a href="#cb5-16" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
+<span id="cb5-17"><a href="#cb5-17" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
+<span id="cb5-18"><a href="#cb5-18" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
+<span id="cb5-19"><a href="#cb5-19" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb5-20"><a href="#cb5-20" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
+<span id="cb5-21"><a href="#cb5-21" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
+<span id="cb5-22"><a href="#cb5-22" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
+<span id="cb5-23"><a href="#cb5-23" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb5-24"><a href="#cb5-24" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
+<span id="cb5-25"><a href="#cb5-25" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
+<span id="cb5-26"><a href="#cb5-26" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb5-27"><a href="#cb5-27" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
+<span id="cb5-28"><a href="#cb5-28" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
+<span id="cb5-29"><a href="#cb5-29" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb5-30"><a href="#cb5-30" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
+<span id="cb5-31"><a href="#cb5-31" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
+<span id="cb5-32"><a href="#cb5-32" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb5-33"><a href="#cb5-33" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
+<span id="cb5-34"><a href="#cb5-34" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
+<span id="cb5-35"><a href="#cb5-35" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb5-36"><a href="#cb5-36" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 </span></span>
+<span id="cb5-37"><a href="#cb5-37" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb5-38"><a href="#cb5-38" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
+<span id="cb5-39"><a href="#cb5-39" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb5-40"><a href="#cb5-40" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
+<span id="cb5-41"><a href="#cb5-41" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb5-42"><a href="#cb5-42" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
+<span id="cb5-43"><a href="#cb5-43" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb5-44"><a href="#cb5-44" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
+<span id="cb5-45"><a href="#cb5-45" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
+<span id="cb5-46"><a href="#cb5-46" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb5-47"><a href="#cb5-47" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
+<span id="cb5-48"><a href="#cb5-48" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb5-49"><a href="#cb5-49" tabindex="-1"></a><span class="co">#&gt; # ---- Additaional Model Specifications ----</span></span>
+<span id="cb5-50"><a href="#cb5-50" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb5-51"><a href="#cb5-51" tabindex="-1"></a><span class="co">#&gt; # JUST ANOTHER COMMENT</span></span></code></pre></div>
 </div>
 </div>
 <div id="bivariate-lcsm-syntax" class="section level1">
 <h1>Bivariate LCSM syntax</h1>
 <div id="true-score-to-change-score" class="section level2">
 <h2>True Score to Change Score</h2>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lavaan_bi_lcsm_delta_01 <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>, </span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
-<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>                                                          <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">delta_lag_xy =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a>                                                           <span class="at">delta_lag_yx =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
-<span id="cb6-14"><a href="#cb6-14" aria-hidden="true" tabindex="-1"></a>                                           <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_delta_01)</span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
-<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
-<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
-<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
-<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
-<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
-<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
-<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
-<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
-<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
-<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb7-57"><a href="#cb7-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
-<span id="cb7-58"><a href="#cb7-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb7-59"><a href="#cb7-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
-<span id="cb7-60"><a href="#cb7-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb7-61"><a href="#cb7-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
-<span id="cb7-62"><a href="#cb7-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb7-63"><a href="#cb7-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
-<span id="cb7-64"><a href="#cb7-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb7-65"><a href="#cb7-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
-<span id="cb7-66"><a href="#cb7-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
-<span id="cb7-67"><a href="#cb7-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
-<span id="cb7-68"><a href="#cb7-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
-<span id="cb7-69"><a href="#cb7-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb7-70"><a href="#cb7-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
-<span id="cb7-71"><a href="#cb7-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
-<span id="cb7-72"><a href="#cb7-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4 </span></span>
-<span id="cb7-73"><a href="#cb7-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-74"><a href="#cb7-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
-<span id="cb7-75"><a href="#cb7-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-76"><a href="#cb7-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb7-77"><a href="#cb7-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
-<span id="cb7-78"><a href="#cb7-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
-<span id="cb7-79"><a href="#cb7-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
-<span id="cb7-80"><a href="#cb7-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 =~ 1 * y4 </span></span>
-<span id="cb7-81"><a href="#cb7-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 =~ 1 * y5 </span></span>
-<span id="cb7-82"><a href="#cb7-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb7-83"><a href="#cb7-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
-<span id="cb7-84"><a href="#cb7-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
-<span id="cb7-85"><a href="#cb7-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
-<span id="cb7-86"><a href="#cb7-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 0 * 1 </span></span>
-<span id="cb7-87"><a href="#cb7-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 0 * 1 </span></span>
-<span id="cb7-88"><a href="#cb7-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb7-89"><a href="#cb7-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
-<span id="cb7-90"><a href="#cb7-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
-<span id="cb7-91"><a href="#cb7-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
-<span id="cb7-92"><a href="#cb7-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~~ 0 * ly4 </span></span>
-<span id="cb7-93"><a href="#cb7-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~~ 0 * ly5 </span></span>
-<span id="cb7-94"><a href="#cb7-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb7-95"><a href="#cb7-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
-<span id="cb7-96"><a href="#cb7-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
-<span id="cb7-97"><a href="#cb7-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
-<span id="cb7-98"><a href="#cb7-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y4 ~ 0 * 1 </span></span>
-<span id="cb7-99"><a href="#cb7-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y5 ~ 0 * 1 </span></span>
-<span id="cb7-100"><a href="#cb7-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb7-101"><a href="#cb7-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
-<span id="cb7-102"><a href="#cb7-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
-<span id="cb7-103"><a href="#cb7-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
-<span id="cb7-104"><a href="#cb7-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y4 ~~ sigma2_uy * y4 </span></span>
-<span id="cb7-105"><a href="#cb7-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y5 ~~ sigma2_uy * y5 </span></span>
-<span id="cb7-106"><a href="#cb7-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb7-107"><a href="#cb7-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
-<span id="cb7-108"><a href="#cb7-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
-<span id="cb7-109"><a href="#cb7-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 1 * ly3 </span></span>
-<span id="cb7-110"><a href="#cb7-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 1 * ly4 </span></span>
-<span id="cb7-111"><a href="#cb7-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb7-112"><a href="#cb7-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
-<span id="cb7-113"><a href="#cb7-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
-<span id="cb7-114"><a href="#cb7-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 =~ 1 * ly4 </span></span>
-<span id="cb7-115"><a href="#cb7-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 =~ 1 * ly5 </span></span>
-<span id="cb7-116"><a href="#cb7-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb7-117"><a href="#cb7-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
-<span id="cb7-118"><a href="#cb7-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
-<span id="cb7-119"><a href="#cb7-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ 0 * 1 </span></span>
-<span id="cb7-120"><a href="#cb7-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ 0 * 1 </span></span>
-<span id="cb7-121"><a href="#cb7-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb7-122"><a href="#cb7-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
-<span id="cb7-123"><a href="#cb7-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
-<span id="cb7-124"><a href="#cb7-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~~ 0 * dy4 </span></span>
-<span id="cb7-125"><a href="#cb7-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~~ 0 * dy5 </span></span>
-<span id="cb7-126"><a href="#cb7-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb7-127"><a href="#cb7-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 + 1 * dy4 + 1 * dy5 </span></span>
-<span id="cb7-128"><a href="#cb7-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb7-129"><a href="#cb7-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
-<span id="cb7-130"><a href="#cb7-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb7-131"><a href="#cb7-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
-<span id="cb7-132"><a href="#cb7-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb7-133"><a href="#cb7-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
-<span id="cb7-134"><a href="#cb7-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb7-135"><a href="#cb7-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
-<span id="cb7-136"><a href="#cb7-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
-<span id="cb7-137"><a href="#cb7-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ beta_y * ly3 </span></span>
-<span id="cb7-138"><a href="#cb7-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ beta_y * ly4 </span></span>
-<span id="cb7-139"><a href="#cb7-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb7-140"><a href="#cb7-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
-<span id="cb7-141"><a href="#cb7-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ phi_y * dy3 </span></span>
-<span id="cb7-142"><a href="#cb7-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ phi_y * dy4 </span></span>
-<span id="cb7-143"><a href="#cb7-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
-<span id="cb7-144"><a href="#cb7-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
-<span id="cb7-145"><a href="#cb7-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
-<span id="cb7-146"><a href="#cb7-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
-<span id="cb7-147"><a href="#cb7-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma_su * y4 </span></span>
-<span id="cb7-148"><a href="#cb7-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma_su * y5 </span></span>
-<span id="cb7-149"><a href="#cb7-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-150"><a href="#cb7-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
-<span id="cb7-151"><a href="#cb7-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-152"><a href="#cb7-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
-<span id="cb7-153"><a href="#cb7-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
-<span id="cb7-154"><a href="#cb7-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb7-155"><a href="#cb7-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
-<span id="cb7-156"><a href="#cb7-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb7-157"><a href="#cb7-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
-<span id="cb7-158"><a href="#cb7-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
-<span id="cb7-159"><a href="#cb7-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
-<span id="cb7-160"><a href="#cb7-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-161"><a href="#cb7-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
-<span id="cb7-162"><a href="#cb7-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb7-163"><a href="#cb7-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by true score y (t-1)  </span></span>
-<span id="cb7-164"><a href="#cb7-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ delta_lag_xy * ly1 </span></span>
-<span id="cb7-165"><a href="#cb7-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ delta_lag_xy * ly2 </span></span>
-<span id="cb7-166"><a href="#cb7-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ delta_lag_xy * ly3 </span></span>
-<span id="cb7-167"><a href="#cb7-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ delta_lag_xy * ly4 </span></span>
-<span id="cb7-168"><a href="#cb7-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by true score x (t-1)  </span></span>
-<span id="cb7-169"><a href="#cb7-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ delta_lag_yx * lx1 </span></span>
-<span id="cb7-170"><a href="#cb7-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ delta_lag_yx * lx2 </span></span>
-<span id="cb7-171"><a href="#cb7-171" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ delta_lag_yx * lx3 </span></span>
-<span id="cb7-172"><a href="#cb7-172" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ delta_lag_yx * lx4</span></span></code></pre></div>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
+<span id="cb6-2"><a href="#cb6-2" tabindex="-1"></a>lavaan_bi_lcsm_delta_01 <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>, </span>
+<span id="cb6-3"><a href="#cb6-3" tabindex="-1"></a>                                           <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb6-4"><a href="#cb6-4" tabindex="-1"></a>                                           <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-5"><a href="#cb6-5" tabindex="-1"></a>                                                          <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-6"><a href="#cb6-6" tabindex="-1"></a>                                                          <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-7"><a href="#cb6-7" tabindex="-1"></a>                                           <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
+<span id="cb6-8"><a href="#cb6-8" tabindex="-1"></a>                                           <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-9"><a href="#cb6-9" tabindex="-1"></a>                                                          <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-10"><a href="#cb6-10" tabindex="-1"></a>                                                          <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb6-11"><a href="#cb6-11" tabindex="-1"></a>                                           <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">delta_lag_xy =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb6-12"><a href="#cb6-12" tabindex="-1"></a>                                                           <span class="at">delta_lag_yx =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb6-13"><a href="#cb6-13" tabindex="-1"></a>                                           <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
+<span id="cb6-14"><a href="#cb6-14" tabindex="-1"></a>                                           <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
+<span id="cb7-2"><a href="#cb7-2" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_delta_01)</span>
+<span id="cb7-3"><a href="#cb7-3" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-4"><a href="#cb7-4" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
+<span id="cb7-5"><a href="#cb7-5" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-6"><a href="#cb7-6" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb7-7"><a href="#cb7-7" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
+<span id="cb7-8"><a href="#cb7-8" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
+<span id="cb7-9"><a href="#cb7-9" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
+<span id="cb7-10"><a href="#cb7-10" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
+<span id="cb7-11"><a href="#cb7-11" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
+<span id="cb7-12"><a href="#cb7-12" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb7-13"><a href="#cb7-13" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
+<span id="cb7-14"><a href="#cb7-14" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
+<span id="cb7-15"><a href="#cb7-15" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
+<span id="cb7-16"><a href="#cb7-16" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
+<span id="cb7-17"><a href="#cb7-17" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
+<span id="cb7-18"><a href="#cb7-18" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb7-19"><a href="#cb7-19" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
+<span id="cb7-20"><a href="#cb7-20" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
+<span id="cb7-21"><a href="#cb7-21" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
+<span id="cb7-22"><a href="#cb7-22" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
+<span id="cb7-23"><a href="#cb7-23" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
+<span id="cb7-24"><a href="#cb7-24" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb7-25"><a href="#cb7-25" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
+<span id="cb7-26"><a href="#cb7-26" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
+<span id="cb7-27"><a href="#cb7-27" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
+<span id="cb7-28"><a href="#cb7-28" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
+<span id="cb7-29"><a href="#cb7-29" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
+<span id="cb7-30"><a href="#cb7-30" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb7-31"><a href="#cb7-31" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
+<span id="cb7-32"><a href="#cb7-32" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
+<span id="cb7-33"><a href="#cb7-33" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
+<span id="cb7-34"><a href="#cb7-34" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
+<span id="cb7-35"><a href="#cb7-35" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
+<span id="cb7-36"><a href="#cb7-36" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb7-37"><a href="#cb7-37" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
+<span id="cb7-38"><a href="#cb7-38" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
+<span id="cb7-39"><a href="#cb7-39" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
+<span id="cb7-40"><a href="#cb7-40" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
+<span id="cb7-41"><a href="#cb7-41" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb7-42"><a href="#cb7-42" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
+<span id="cb7-43"><a href="#cb7-43" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
+<span id="cb7-44"><a href="#cb7-44" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
+<span id="cb7-45"><a href="#cb7-45" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
+<span id="cb7-46"><a href="#cb7-46" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb7-47"><a href="#cb7-47" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
+<span id="cb7-48"><a href="#cb7-48" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
+<span id="cb7-49"><a href="#cb7-49" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
+<span id="cb7-50"><a href="#cb7-50" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
+<span id="cb7-51"><a href="#cb7-51" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb7-52"><a href="#cb7-52" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
+<span id="cb7-53"><a href="#cb7-53" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
+<span id="cb7-54"><a href="#cb7-54" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
+<span id="cb7-55"><a href="#cb7-55" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
+<span id="cb7-56"><a href="#cb7-56" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb7-57"><a href="#cb7-57" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
+<span id="cb7-58"><a href="#cb7-58" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb7-59"><a href="#cb7-59" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
+<span id="cb7-60"><a href="#cb7-60" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb7-61"><a href="#cb7-61" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
+<span id="cb7-62"><a href="#cb7-62" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb7-63"><a href="#cb7-63" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
+<span id="cb7-64"><a href="#cb7-64" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb7-65"><a href="#cb7-65" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
+<span id="cb7-66"><a href="#cb7-66" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
+<span id="cb7-67"><a href="#cb7-67" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
+<span id="cb7-68"><a href="#cb7-68" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
+<span id="cb7-69"><a href="#cb7-69" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb7-70"><a href="#cb7-70" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
+<span id="cb7-71"><a href="#cb7-71" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
+<span id="cb7-72"><a href="#cb7-72" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4 </span></span>
+<span id="cb7-73"><a href="#cb7-73" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-74"><a href="#cb7-74" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
+<span id="cb7-75"><a href="#cb7-75" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-76"><a href="#cb7-76" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb7-77"><a href="#cb7-77" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
+<span id="cb7-78"><a href="#cb7-78" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
+<span id="cb7-79"><a href="#cb7-79" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
+<span id="cb7-80"><a href="#cb7-80" tabindex="-1"></a><span class="co">#&gt; ly4 =~ 1 * y4 </span></span>
+<span id="cb7-81"><a href="#cb7-81" tabindex="-1"></a><span class="co">#&gt; ly5 =~ 1 * y5 </span></span>
+<span id="cb7-82"><a href="#cb7-82" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb7-83"><a href="#cb7-83" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
+<span id="cb7-84"><a href="#cb7-84" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
+<span id="cb7-85"><a href="#cb7-85" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
+<span id="cb7-86"><a href="#cb7-86" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 0 * 1 </span></span>
+<span id="cb7-87"><a href="#cb7-87" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 0 * 1 </span></span>
+<span id="cb7-88"><a href="#cb7-88" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb7-89"><a href="#cb7-89" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
+<span id="cb7-90"><a href="#cb7-90" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
+<span id="cb7-91"><a href="#cb7-91" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
+<span id="cb7-92"><a href="#cb7-92" tabindex="-1"></a><span class="co">#&gt; ly4 ~~ 0 * ly4 </span></span>
+<span id="cb7-93"><a href="#cb7-93" tabindex="-1"></a><span class="co">#&gt; ly5 ~~ 0 * ly5 </span></span>
+<span id="cb7-94"><a href="#cb7-94" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb7-95"><a href="#cb7-95" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
+<span id="cb7-96"><a href="#cb7-96" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
+<span id="cb7-97"><a href="#cb7-97" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
+<span id="cb7-98"><a href="#cb7-98" tabindex="-1"></a><span class="co">#&gt; y4 ~ 0 * 1 </span></span>
+<span id="cb7-99"><a href="#cb7-99" tabindex="-1"></a><span class="co">#&gt; y5 ~ 0 * 1 </span></span>
+<span id="cb7-100"><a href="#cb7-100" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb7-101"><a href="#cb7-101" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
+<span id="cb7-102"><a href="#cb7-102" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
+<span id="cb7-103"><a href="#cb7-103" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
+<span id="cb7-104"><a href="#cb7-104" tabindex="-1"></a><span class="co">#&gt; y4 ~~ sigma2_uy * y4 </span></span>
+<span id="cb7-105"><a href="#cb7-105" tabindex="-1"></a><span class="co">#&gt; y5 ~~ sigma2_uy * y5 </span></span>
+<span id="cb7-106"><a href="#cb7-106" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb7-107"><a href="#cb7-107" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
+<span id="cb7-108"><a href="#cb7-108" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
+<span id="cb7-109"><a href="#cb7-109" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 1 * ly3 </span></span>
+<span id="cb7-110"><a href="#cb7-110" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 1 * ly4 </span></span>
+<span id="cb7-111"><a href="#cb7-111" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb7-112"><a href="#cb7-112" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
+<span id="cb7-113"><a href="#cb7-113" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
+<span id="cb7-114"><a href="#cb7-114" tabindex="-1"></a><span class="co">#&gt; dy4 =~ 1 * ly4 </span></span>
+<span id="cb7-115"><a href="#cb7-115" tabindex="-1"></a><span class="co">#&gt; dy5 =~ 1 * ly5 </span></span>
+<span id="cb7-116"><a href="#cb7-116" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb7-117"><a href="#cb7-117" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
+<span id="cb7-118"><a href="#cb7-118" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
+<span id="cb7-119"><a href="#cb7-119" tabindex="-1"></a><span class="co">#&gt; dy4 ~ 0 * 1 </span></span>
+<span id="cb7-120"><a href="#cb7-120" tabindex="-1"></a><span class="co">#&gt; dy5 ~ 0 * 1 </span></span>
+<span id="cb7-121"><a href="#cb7-121" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb7-122"><a href="#cb7-122" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
+<span id="cb7-123"><a href="#cb7-123" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
+<span id="cb7-124"><a href="#cb7-124" tabindex="-1"></a><span class="co">#&gt; dy4 ~~ 0 * dy4 </span></span>
+<span id="cb7-125"><a href="#cb7-125" tabindex="-1"></a><span class="co">#&gt; dy5 ~~ 0 * dy5 </span></span>
+<span id="cb7-126"><a href="#cb7-126" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb7-127"><a href="#cb7-127" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 + 1 * dy4 + 1 * dy5 </span></span>
+<span id="cb7-128"><a href="#cb7-128" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb7-129"><a href="#cb7-129" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
+<span id="cb7-130"><a href="#cb7-130" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb7-131"><a href="#cb7-131" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
+<span id="cb7-132"><a href="#cb7-132" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb7-133"><a href="#cb7-133" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
+<span id="cb7-134"><a href="#cb7-134" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb7-135"><a href="#cb7-135" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
+<span id="cb7-136"><a href="#cb7-136" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
+<span id="cb7-137"><a href="#cb7-137" tabindex="-1"></a><span class="co">#&gt; dy4 ~ beta_y * ly3 </span></span>
+<span id="cb7-138"><a href="#cb7-138" tabindex="-1"></a><span class="co">#&gt; dy5 ~ beta_y * ly4 </span></span>
+<span id="cb7-139"><a href="#cb7-139" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb7-140"><a href="#cb7-140" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
+<span id="cb7-141"><a href="#cb7-141" tabindex="-1"></a><span class="co">#&gt; dy4 ~ phi_y * dy3 </span></span>
+<span id="cb7-142"><a href="#cb7-142" tabindex="-1"></a><span class="co">#&gt; dy5 ~ phi_y * dy4 </span></span>
+<span id="cb7-143"><a href="#cb7-143" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
+<span id="cb7-144"><a href="#cb7-144" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
+<span id="cb7-145"><a href="#cb7-145" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
+<span id="cb7-146"><a href="#cb7-146" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
+<span id="cb7-147"><a href="#cb7-147" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma_su * y4 </span></span>
+<span id="cb7-148"><a href="#cb7-148" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma_su * y5 </span></span>
+<span id="cb7-149"><a href="#cb7-149" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-150"><a href="#cb7-150" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
+<span id="cb7-151"><a href="#cb7-151" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-152"><a href="#cb7-152" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
+<span id="cb7-153"><a href="#cb7-153" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
+<span id="cb7-154"><a href="#cb7-154" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb7-155"><a href="#cb7-155" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
+<span id="cb7-156"><a href="#cb7-156" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb7-157"><a href="#cb7-157" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
+<span id="cb7-158"><a href="#cb7-158" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
+<span id="cb7-159"><a href="#cb7-159" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
+<span id="cb7-160"><a href="#cb7-160" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-161"><a href="#cb7-161" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
+<span id="cb7-162"><a href="#cb7-162" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb7-163"><a href="#cb7-163" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by true score y (t-1)  </span></span>
+<span id="cb7-164"><a href="#cb7-164" tabindex="-1"></a><span class="co">#&gt; dx2 ~ delta_lag_xy * ly1 </span></span>
+<span id="cb7-165"><a href="#cb7-165" tabindex="-1"></a><span class="co">#&gt; dx3 ~ delta_lag_xy * ly2 </span></span>
+<span id="cb7-166"><a href="#cb7-166" tabindex="-1"></a><span class="co">#&gt; dx4 ~ delta_lag_xy * ly3 </span></span>
+<span id="cb7-167"><a href="#cb7-167" tabindex="-1"></a><span class="co">#&gt; dx5 ~ delta_lag_xy * ly4 </span></span>
+<span id="cb7-168"><a href="#cb7-168" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by true score x (t-1)  </span></span>
+<span id="cb7-169"><a href="#cb7-169" tabindex="-1"></a><span class="co">#&gt; dy2 ~ delta_lag_yx * lx1 </span></span>
+<span id="cb7-170"><a href="#cb7-170" tabindex="-1"></a><span class="co">#&gt; dy3 ~ delta_lag_yx * lx2 </span></span>
+<span id="cb7-171"><a href="#cb7-171" tabindex="-1"></a><span class="co">#&gt; dy4 ~ delta_lag_yx * lx3 </span></span>
+<span id="cb7-172"><a href="#cb7-172" tabindex="-1"></a><span class="co">#&gt; dy5 ~ delta_lag_yx * lx4</span></span></code></pre></div>
 </div>
 <div id="change-score-to-change-score" class="section level2">
 <h2>Change Score to Change Score</h2>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>lavaan_bi_lcsm_xi_01 <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>, </span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">xi_lag_xy =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>                                                        <span class="at">xi_lag_yx =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_xi_01)</span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb9-52"><a href="#cb9-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
-<span id="cb9-53"><a href="#cb9-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
-<span id="cb9-54"><a href="#cb9-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
-<span id="cb9-55"><a href="#cb9-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
-<span id="cb9-56"><a href="#cb9-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb9-57"><a href="#cb9-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
-<span id="cb9-58"><a href="#cb9-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb9-59"><a href="#cb9-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
-<span id="cb9-60"><a href="#cb9-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb9-61"><a href="#cb9-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
-<span id="cb9-62"><a href="#cb9-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb9-63"><a href="#cb9-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
-<span id="cb9-64"><a href="#cb9-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb9-65"><a href="#cb9-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
-<span id="cb9-66"><a href="#cb9-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
-<span id="cb9-67"><a href="#cb9-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
-<span id="cb9-68"><a href="#cb9-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
-<span id="cb9-69"><a href="#cb9-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb9-70"><a href="#cb9-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
-<span id="cb9-71"><a href="#cb9-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
-<span id="cb9-72"><a href="#cb9-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4 </span></span>
-<span id="cb9-73"><a href="#cb9-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-74"><a href="#cb9-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
-<span id="cb9-75"><a href="#cb9-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-76"><a href="#cb9-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb9-77"><a href="#cb9-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
-<span id="cb9-78"><a href="#cb9-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
-<span id="cb9-79"><a href="#cb9-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
-<span id="cb9-80"><a href="#cb9-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 =~ 1 * y4 </span></span>
-<span id="cb9-81"><a href="#cb9-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 =~ 1 * y5 </span></span>
-<span id="cb9-82"><a href="#cb9-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb9-83"><a href="#cb9-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
-<span id="cb9-84"><a href="#cb9-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
-<span id="cb9-85"><a href="#cb9-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
-<span id="cb9-86"><a href="#cb9-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 0 * 1 </span></span>
-<span id="cb9-87"><a href="#cb9-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 0 * 1 </span></span>
-<span id="cb9-88"><a href="#cb9-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb9-89"><a href="#cb9-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
-<span id="cb9-90"><a href="#cb9-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
-<span id="cb9-91"><a href="#cb9-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
-<span id="cb9-92"><a href="#cb9-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~~ 0 * ly4 </span></span>
-<span id="cb9-93"><a href="#cb9-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~~ 0 * ly5 </span></span>
-<span id="cb9-94"><a href="#cb9-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb9-95"><a href="#cb9-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
-<span id="cb9-96"><a href="#cb9-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
-<span id="cb9-97"><a href="#cb9-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
-<span id="cb9-98"><a href="#cb9-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y4 ~ 0 * 1 </span></span>
-<span id="cb9-99"><a href="#cb9-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y5 ~ 0 * 1 </span></span>
-<span id="cb9-100"><a href="#cb9-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb9-101"><a href="#cb9-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
-<span id="cb9-102"><a href="#cb9-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
-<span id="cb9-103"><a href="#cb9-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
-<span id="cb9-104"><a href="#cb9-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y4 ~~ sigma2_uy * y4 </span></span>
-<span id="cb9-105"><a href="#cb9-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y5 ~~ sigma2_uy * y5 </span></span>
-<span id="cb9-106"><a href="#cb9-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb9-107"><a href="#cb9-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
-<span id="cb9-108"><a href="#cb9-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
-<span id="cb9-109"><a href="#cb9-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 1 * ly3 </span></span>
-<span id="cb9-110"><a href="#cb9-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 1 * ly4 </span></span>
-<span id="cb9-111"><a href="#cb9-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb9-112"><a href="#cb9-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
-<span id="cb9-113"><a href="#cb9-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
-<span id="cb9-114"><a href="#cb9-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 =~ 1 * ly4 </span></span>
-<span id="cb9-115"><a href="#cb9-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 =~ 1 * ly5 </span></span>
-<span id="cb9-116"><a href="#cb9-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb9-117"><a href="#cb9-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
-<span id="cb9-118"><a href="#cb9-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
-<span id="cb9-119"><a href="#cb9-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ 0 * 1 </span></span>
-<span id="cb9-120"><a href="#cb9-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ 0 * 1 </span></span>
-<span id="cb9-121"><a href="#cb9-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb9-122"><a href="#cb9-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
-<span id="cb9-123"><a href="#cb9-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
-<span id="cb9-124"><a href="#cb9-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~~ 0 * dy4 </span></span>
-<span id="cb9-125"><a href="#cb9-125" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~~ 0 * dy5 </span></span>
-<span id="cb9-126"><a href="#cb9-126" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb9-127"><a href="#cb9-127" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 + 1 * dy4 + 1 * dy5 </span></span>
-<span id="cb9-128"><a href="#cb9-128" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb9-129"><a href="#cb9-129" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
-<span id="cb9-130"><a href="#cb9-130" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb9-131"><a href="#cb9-131" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
-<span id="cb9-132"><a href="#cb9-132" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb9-133"><a href="#cb9-133" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
-<span id="cb9-134"><a href="#cb9-134" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb9-135"><a href="#cb9-135" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
-<span id="cb9-136"><a href="#cb9-136" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
-<span id="cb9-137"><a href="#cb9-137" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ beta_y * ly3 </span></span>
-<span id="cb9-138"><a href="#cb9-138" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ beta_y * ly4 </span></span>
-<span id="cb9-139"><a href="#cb9-139" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb9-140"><a href="#cb9-140" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
-<span id="cb9-141"><a href="#cb9-141" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ phi_y * dy3 </span></span>
-<span id="cb9-142"><a href="#cb9-142" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ phi_y * dy4 </span></span>
-<span id="cb9-143"><a href="#cb9-143" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
-<span id="cb9-144"><a href="#cb9-144" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
-<span id="cb9-145"><a href="#cb9-145" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
-<span id="cb9-146"><a href="#cb9-146" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
-<span id="cb9-147"><a href="#cb9-147" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma_su * y4 </span></span>
-<span id="cb9-148"><a href="#cb9-148" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma_su * y5 </span></span>
-<span id="cb9-149"><a href="#cb9-149" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-150"><a href="#cb9-150" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
-<span id="cb9-151"><a href="#cb9-151" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-152"><a href="#cb9-152" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
-<span id="cb9-153"><a href="#cb9-153" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
-<span id="cb9-154"><a href="#cb9-154" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb9-155"><a href="#cb9-155" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
-<span id="cb9-156"><a href="#cb9-156" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb9-157"><a href="#cb9-157" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
-<span id="cb9-158"><a href="#cb9-158" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
-<span id="cb9-159"><a href="#cb9-159" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
-<span id="cb9-160"><a href="#cb9-160" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-161"><a href="#cb9-161" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
-<span id="cb9-162"><a href="#cb9-162" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb9-163"><a href="#cb9-163" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by change score y (t-1)  </span></span>
-<span id="cb9-164"><a href="#cb9-164" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ xi_lag_xy * dy2 </span></span>
-<span id="cb9-165"><a href="#cb9-165" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx4 ~ xi_lag_xy * dy3 </span></span>
-<span id="cb9-166"><a href="#cb9-166" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx5 ~ xi_lag_xy * dy4 </span></span>
-<span id="cb9-167"><a href="#cb9-167" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by change score x (t-1)  </span></span>
-<span id="cb9-168"><a href="#cb9-168" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ xi_lag_yx * dx2 </span></span>
-<span id="cb9-169"><a href="#cb9-169" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy4 ~ xi_lag_yx * dx3 </span></span>
-<span id="cb9-170"><a href="#cb9-170" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy5 ~ xi_lag_yx * dx4</span></span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
+<span id="cb8-2"><a href="#cb8-2" tabindex="-1"></a>lavaan_bi_lcsm_xi_01 <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">5</span>, </span>
+<span id="cb8-3"><a href="#cb8-3" tabindex="-1"></a>                                        <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb8-4"><a href="#cb8-4" tabindex="-1"></a>                                        <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-5"><a href="#cb8-5" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-6"><a href="#cb8-6" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-7"><a href="#cb8-7" tabindex="-1"></a>                                        <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
+<span id="cb8-8"><a href="#cb8-8" tabindex="-1"></a>                                        <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-9"><a href="#cb8-9" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-10"><a href="#cb8-10" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb8-11"><a href="#cb8-11" tabindex="-1"></a>                                        <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">xi_lag_xy =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb8-12"><a href="#cb8-12" tabindex="-1"></a>                                                        <span class="at">xi_lag_yx =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb8-13"><a href="#cb8-13" tabindex="-1"></a>                                        <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
+<span id="cb8-14"><a href="#cb8-14" tabindex="-1"></a>                                        <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
+<span id="cb9-2"><a href="#cb9-2" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_xi_01)</span>
+<span id="cb9-3"><a href="#cb9-3" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-4"><a href="#cb9-4" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
+<span id="cb9-5"><a href="#cb9-5" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-6"><a href="#cb9-6" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb9-7"><a href="#cb9-7" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
+<span id="cb9-8"><a href="#cb9-8" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
+<span id="cb9-9"><a href="#cb9-9" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
+<span id="cb9-10"><a href="#cb9-10" tabindex="-1"></a><span class="co">#&gt; lx4 =~ 1 * x4 </span></span>
+<span id="cb9-11"><a href="#cb9-11" tabindex="-1"></a><span class="co">#&gt; lx5 =~ 1 * x5 </span></span>
+<span id="cb9-12"><a href="#cb9-12" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb9-13"><a href="#cb9-13" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
+<span id="cb9-14"><a href="#cb9-14" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
+<span id="cb9-15"><a href="#cb9-15" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
+<span id="cb9-16"><a href="#cb9-16" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 0 * 1 </span></span>
+<span id="cb9-17"><a href="#cb9-17" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 0 * 1 </span></span>
+<span id="cb9-18"><a href="#cb9-18" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb9-19"><a href="#cb9-19" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
+<span id="cb9-20"><a href="#cb9-20" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
+<span id="cb9-21"><a href="#cb9-21" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
+<span id="cb9-22"><a href="#cb9-22" tabindex="-1"></a><span class="co">#&gt; lx4 ~~ 0 * lx4 </span></span>
+<span id="cb9-23"><a href="#cb9-23" tabindex="-1"></a><span class="co">#&gt; lx5 ~~ 0 * lx5 </span></span>
+<span id="cb9-24"><a href="#cb9-24" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb9-25"><a href="#cb9-25" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
+<span id="cb9-26"><a href="#cb9-26" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
+<span id="cb9-27"><a href="#cb9-27" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
+<span id="cb9-28"><a href="#cb9-28" tabindex="-1"></a><span class="co">#&gt; x4 ~ 0 * 1 </span></span>
+<span id="cb9-29"><a href="#cb9-29" tabindex="-1"></a><span class="co">#&gt; x5 ~ 0 * 1 </span></span>
+<span id="cb9-30"><a href="#cb9-30" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb9-31"><a href="#cb9-31" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
+<span id="cb9-32"><a href="#cb9-32" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
+<span id="cb9-33"><a href="#cb9-33" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
+<span id="cb9-34"><a href="#cb9-34" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma2_ux * x4 </span></span>
+<span id="cb9-35"><a href="#cb9-35" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma2_ux * x5 </span></span>
+<span id="cb9-36"><a href="#cb9-36" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb9-37"><a href="#cb9-37" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
+<span id="cb9-38"><a href="#cb9-38" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
+<span id="cb9-39"><a href="#cb9-39" tabindex="-1"></a><span class="co">#&gt; lx4 ~ 1 * lx3 </span></span>
+<span id="cb9-40"><a href="#cb9-40" tabindex="-1"></a><span class="co">#&gt; lx5 ~ 1 * lx4 </span></span>
+<span id="cb9-41"><a href="#cb9-41" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb9-42"><a href="#cb9-42" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
+<span id="cb9-43"><a href="#cb9-43" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
+<span id="cb9-44"><a href="#cb9-44" tabindex="-1"></a><span class="co">#&gt; dx4 =~ 1 * lx4 </span></span>
+<span id="cb9-45"><a href="#cb9-45" tabindex="-1"></a><span class="co">#&gt; dx5 =~ 1 * lx5 </span></span>
+<span id="cb9-46"><a href="#cb9-46" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb9-47"><a href="#cb9-47" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
+<span id="cb9-48"><a href="#cb9-48" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
+<span id="cb9-49"><a href="#cb9-49" tabindex="-1"></a><span class="co">#&gt; dx4 ~ 0 * 1 </span></span>
+<span id="cb9-50"><a href="#cb9-50" tabindex="-1"></a><span class="co">#&gt; dx5 ~ 0 * 1 </span></span>
+<span id="cb9-51"><a href="#cb9-51" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb9-52"><a href="#cb9-52" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
+<span id="cb9-53"><a href="#cb9-53" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
+<span id="cb9-54"><a href="#cb9-54" tabindex="-1"></a><span class="co">#&gt; dx4 ~~ 0 * dx4 </span></span>
+<span id="cb9-55"><a href="#cb9-55" tabindex="-1"></a><span class="co">#&gt; dx5 ~~ 0 * dx5 </span></span>
+<span id="cb9-56"><a href="#cb9-56" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb9-57"><a href="#cb9-57" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 + 1 * dx4 + 1 * dx5 </span></span>
+<span id="cb9-58"><a href="#cb9-58" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb9-59"><a href="#cb9-59" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
+<span id="cb9-60"><a href="#cb9-60" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb9-61"><a href="#cb9-61" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
+<span id="cb9-62"><a href="#cb9-62" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb9-63"><a href="#cb9-63" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
+<span id="cb9-64"><a href="#cb9-64" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb9-65"><a href="#cb9-65" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
+<span id="cb9-66"><a href="#cb9-66" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
+<span id="cb9-67"><a href="#cb9-67" tabindex="-1"></a><span class="co">#&gt; dx4 ~ beta_x * lx3 </span></span>
+<span id="cb9-68"><a href="#cb9-68" tabindex="-1"></a><span class="co">#&gt; dx5 ~ beta_x * lx4 </span></span>
+<span id="cb9-69"><a href="#cb9-69" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb9-70"><a href="#cb9-70" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
+<span id="cb9-71"><a href="#cb9-71" tabindex="-1"></a><span class="co">#&gt; dx4 ~ phi_x * dx3 </span></span>
+<span id="cb9-72"><a href="#cb9-72" tabindex="-1"></a><span class="co">#&gt; dx5 ~ phi_x * dx4 </span></span>
+<span id="cb9-73"><a href="#cb9-73" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-74"><a href="#cb9-74" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
+<span id="cb9-75"><a href="#cb9-75" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-76"><a href="#cb9-76" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb9-77"><a href="#cb9-77" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
+<span id="cb9-78"><a href="#cb9-78" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
+<span id="cb9-79"><a href="#cb9-79" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
+<span id="cb9-80"><a href="#cb9-80" tabindex="-1"></a><span class="co">#&gt; ly4 =~ 1 * y4 </span></span>
+<span id="cb9-81"><a href="#cb9-81" tabindex="-1"></a><span class="co">#&gt; ly5 =~ 1 * y5 </span></span>
+<span id="cb9-82"><a href="#cb9-82" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb9-83"><a href="#cb9-83" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
+<span id="cb9-84"><a href="#cb9-84" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
+<span id="cb9-85"><a href="#cb9-85" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
+<span id="cb9-86"><a href="#cb9-86" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 0 * 1 </span></span>
+<span id="cb9-87"><a href="#cb9-87" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 0 * 1 </span></span>
+<span id="cb9-88"><a href="#cb9-88" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb9-89"><a href="#cb9-89" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
+<span id="cb9-90"><a href="#cb9-90" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
+<span id="cb9-91"><a href="#cb9-91" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
+<span id="cb9-92"><a href="#cb9-92" tabindex="-1"></a><span class="co">#&gt; ly4 ~~ 0 * ly4 </span></span>
+<span id="cb9-93"><a href="#cb9-93" tabindex="-1"></a><span class="co">#&gt; ly5 ~~ 0 * ly5 </span></span>
+<span id="cb9-94"><a href="#cb9-94" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb9-95"><a href="#cb9-95" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
+<span id="cb9-96"><a href="#cb9-96" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
+<span id="cb9-97"><a href="#cb9-97" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
+<span id="cb9-98"><a href="#cb9-98" tabindex="-1"></a><span class="co">#&gt; y4 ~ 0 * 1 </span></span>
+<span id="cb9-99"><a href="#cb9-99" tabindex="-1"></a><span class="co">#&gt; y5 ~ 0 * 1 </span></span>
+<span id="cb9-100"><a href="#cb9-100" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb9-101"><a href="#cb9-101" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
+<span id="cb9-102"><a href="#cb9-102" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
+<span id="cb9-103"><a href="#cb9-103" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
+<span id="cb9-104"><a href="#cb9-104" tabindex="-1"></a><span class="co">#&gt; y4 ~~ sigma2_uy * y4 </span></span>
+<span id="cb9-105"><a href="#cb9-105" tabindex="-1"></a><span class="co">#&gt; y5 ~~ sigma2_uy * y5 </span></span>
+<span id="cb9-106"><a href="#cb9-106" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb9-107"><a href="#cb9-107" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
+<span id="cb9-108"><a href="#cb9-108" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
+<span id="cb9-109"><a href="#cb9-109" tabindex="-1"></a><span class="co">#&gt; ly4 ~ 1 * ly3 </span></span>
+<span id="cb9-110"><a href="#cb9-110" tabindex="-1"></a><span class="co">#&gt; ly5 ~ 1 * ly4 </span></span>
+<span id="cb9-111"><a href="#cb9-111" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb9-112"><a href="#cb9-112" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
+<span id="cb9-113"><a href="#cb9-113" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
+<span id="cb9-114"><a href="#cb9-114" tabindex="-1"></a><span class="co">#&gt; dy4 =~ 1 * ly4 </span></span>
+<span id="cb9-115"><a href="#cb9-115" tabindex="-1"></a><span class="co">#&gt; dy5 =~ 1 * ly5 </span></span>
+<span id="cb9-116"><a href="#cb9-116" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb9-117"><a href="#cb9-117" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
+<span id="cb9-118"><a href="#cb9-118" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
+<span id="cb9-119"><a href="#cb9-119" tabindex="-1"></a><span class="co">#&gt; dy4 ~ 0 * 1 </span></span>
+<span id="cb9-120"><a href="#cb9-120" tabindex="-1"></a><span class="co">#&gt; dy5 ~ 0 * 1 </span></span>
+<span id="cb9-121"><a href="#cb9-121" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb9-122"><a href="#cb9-122" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
+<span id="cb9-123"><a href="#cb9-123" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
+<span id="cb9-124"><a href="#cb9-124" tabindex="-1"></a><span class="co">#&gt; dy4 ~~ 0 * dy4 </span></span>
+<span id="cb9-125"><a href="#cb9-125" tabindex="-1"></a><span class="co">#&gt; dy5 ~~ 0 * dy5 </span></span>
+<span id="cb9-126"><a href="#cb9-126" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb9-127"><a href="#cb9-127" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 + 1 * dy4 + 1 * dy5 </span></span>
+<span id="cb9-128"><a href="#cb9-128" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb9-129"><a href="#cb9-129" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
+<span id="cb9-130"><a href="#cb9-130" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb9-131"><a href="#cb9-131" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
+<span id="cb9-132"><a href="#cb9-132" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb9-133"><a href="#cb9-133" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
+<span id="cb9-134"><a href="#cb9-134" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb9-135"><a href="#cb9-135" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
+<span id="cb9-136"><a href="#cb9-136" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
+<span id="cb9-137"><a href="#cb9-137" tabindex="-1"></a><span class="co">#&gt; dy4 ~ beta_y * ly3 </span></span>
+<span id="cb9-138"><a href="#cb9-138" tabindex="-1"></a><span class="co">#&gt; dy5 ~ beta_y * ly4 </span></span>
+<span id="cb9-139"><a href="#cb9-139" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb9-140"><a href="#cb9-140" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
+<span id="cb9-141"><a href="#cb9-141" tabindex="-1"></a><span class="co">#&gt; dy4 ~ phi_y * dy3 </span></span>
+<span id="cb9-142"><a href="#cb9-142" tabindex="-1"></a><span class="co">#&gt; dy5 ~ phi_y * dy4 </span></span>
+<span id="cb9-143"><a href="#cb9-143" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
+<span id="cb9-144"><a href="#cb9-144" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
+<span id="cb9-145"><a href="#cb9-145" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
+<span id="cb9-146"><a href="#cb9-146" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
+<span id="cb9-147"><a href="#cb9-147" tabindex="-1"></a><span class="co">#&gt; x4 ~~ sigma_su * y4 </span></span>
+<span id="cb9-148"><a href="#cb9-148" tabindex="-1"></a><span class="co">#&gt; x5 ~~ sigma_su * y5 </span></span>
+<span id="cb9-149"><a href="#cb9-149" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-150"><a href="#cb9-150" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
+<span id="cb9-151"><a href="#cb9-151" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-152"><a href="#cb9-152" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
+<span id="cb9-153"><a href="#cb9-153" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
+<span id="cb9-154"><a href="#cb9-154" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb9-155"><a href="#cb9-155" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
+<span id="cb9-156"><a href="#cb9-156" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb9-157"><a href="#cb9-157" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
+<span id="cb9-158"><a href="#cb9-158" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
+<span id="cb9-159"><a href="#cb9-159" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
+<span id="cb9-160"><a href="#cb9-160" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-161"><a href="#cb9-161" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
+<span id="cb9-162"><a href="#cb9-162" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb9-163"><a href="#cb9-163" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by change score y (t-1)  </span></span>
+<span id="cb9-164"><a href="#cb9-164" tabindex="-1"></a><span class="co">#&gt; dx3 ~ xi_lag_xy * dy2 </span></span>
+<span id="cb9-165"><a href="#cb9-165" tabindex="-1"></a><span class="co">#&gt; dx4 ~ xi_lag_xy * dy3 </span></span>
+<span id="cb9-166"><a href="#cb9-166" tabindex="-1"></a><span class="co">#&gt; dx5 ~ xi_lag_xy * dy4 </span></span>
+<span id="cb9-167"><a href="#cb9-167" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by change score x (t-1)  </span></span>
+<span id="cb9-168"><a href="#cb9-168" tabindex="-1"></a><span class="co">#&gt; dy3 ~ xi_lag_yx * dx2 </span></span>
+<span id="cb9-169"><a href="#cb9-169" tabindex="-1"></a><span class="co">#&gt; dy4 ~ xi_lag_yx * dx3 </span></span>
+<span id="cb9-170"><a href="#cb9-170" tabindex="-1"></a><span class="co">#&gt; dy5 ~ xi_lag_yx * dx4</span></span></code></pre></div>
 </div>
 <div id="add-model-specifications-to-lavaan-code" class="section level2">
 <h2>Add model specifications to lavaan code</h2>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>lavaan_bi_lcsm_xi_add <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">3</span>, </span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
-<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">xi_lag_xy =</span> <span class="cn">TRUE</span>, </span>
-<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>                                                        <span class="at">xi_lag_yx =</span> <span class="cn">TRUE</span>),</span>
-<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">add =</span> <span class="st">&quot;age ~~ age_j2 * j2&quot;</span>,</span>
-<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
-<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a>                                        <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
-<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
-<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_xi_add)</span>
-<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
-<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
-<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
-<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
-<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
-<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
-<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
-<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
-<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
-<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
-<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
-<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
-<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
-<span id="cb11-22"><a href="#cb11-22" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb11-23"><a href="#cb11-23" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
-<span id="cb11-24"><a href="#cb11-24" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
-<span id="cb11-25"><a href="#cb11-25" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
-<span id="cb11-26"><a href="#cb11-26" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb11-27"><a href="#cb11-27" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
-<span id="cb11-28"><a href="#cb11-28" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
-<span id="cb11-29"><a href="#cb11-29" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb11-30"><a href="#cb11-30" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
-<span id="cb11-31"><a href="#cb11-31" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
-<span id="cb11-32"><a href="#cb11-32" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb11-33"><a href="#cb11-33" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
-<span id="cb11-34"><a href="#cb11-34" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
-<span id="cb11-35"><a href="#cb11-35" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb11-36"><a href="#cb11-36" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
-<span id="cb11-37"><a href="#cb11-37" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
-<span id="cb11-38"><a href="#cb11-38" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb11-39"><a href="#cb11-39" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 </span></span>
-<span id="cb11-40"><a href="#cb11-40" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb11-41"><a href="#cb11-41" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
-<span id="cb11-42"><a href="#cb11-42" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb11-43"><a href="#cb11-43" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
-<span id="cb11-44"><a href="#cb11-44" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb11-45"><a href="#cb11-45" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
-<span id="cb11-46"><a href="#cb11-46" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb11-47"><a href="#cb11-47" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
-<span id="cb11-48"><a href="#cb11-48" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
-<span id="cb11-49"><a href="#cb11-49" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb11-50"><a href="#cb11-50" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
-<span id="cb11-51"><a href="#cb11-51" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-52"><a href="#cb11-52" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
-<span id="cb11-53"><a href="#cb11-53" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-54"><a href="#cb11-54" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
-<span id="cb11-55"><a href="#cb11-55" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
-<span id="cb11-56"><a href="#cb11-56" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
-<span id="cb11-57"><a href="#cb11-57" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
-<span id="cb11-58"><a href="#cb11-58" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
-<span id="cb11-59"><a href="#cb11-59" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
-<span id="cb11-60"><a href="#cb11-60" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
-<span id="cb11-61"><a href="#cb11-61" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
-<span id="cb11-62"><a href="#cb11-62" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
-<span id="cb11-63"><a href="#cb11-63" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
-<span id="cb11-64"><a href="#cb11-64" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
-<span id="cb11-65"><a href="#cb11-65" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
-<span id="cb11-66"><a href="#cb11-66" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
-<span id="cb11-67"><a href="#cb11-67" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
-<span id="cb11-68"><a href="#cb11-68" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
-<span id="cb11-69"><a href="#cb11-69" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
-<span id="cb11-70"><a href="#cb11-70" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
-<span id="cb11-71"><a href="#cb11-71" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
-<span id="cb11-72"><a href="#cb11-72" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
-<span id="cb11-73"><a href="#cb11-73" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
-<span id="cb11-74"><a href="#cb11-74" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
-<span id="cb11-75"><a href="#cb11-75" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
-<span id="cb11-76"><a href="#cb11-76" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
-<span id="cb11-77"><a href="#cb11-77" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
-<span id="cb11-78"><a href="#cb11-78" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
-<span id="cb11-79"><a href="#cb11-79" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
-<span id="cb11-80"><a href="#cb11-80" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
-<span id="cb11-81"><a href="#cb11-81" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
-<span id="cb11-82"><a href="#cb11-82" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
-<span id="cb11-83"><a href="#cb11-83" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
-<span id="cb11-84"><a href="#cb11-84" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
-<span id="cb11-85"><a href="#cb11-85" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
-<span id="cb11-86"><a href="#cb11-86" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
-<span id="cb11-87"><a href="#cb11-87" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 </span></span>
-<span id="cb11-88"><a href="#cb11-88" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
-<span id="cb11-89"><a href="#cb11-89" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
-<span id="cb11-90"><a href="#cb11-90" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
-<span id="cb11-91"><a href="#cb11-91" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
-<span id="cb11-92"><a href="#cb11-92" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
-<span id="cb11-93"><a href="#cb11-93" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
-<span id="cb11-94"><a href="#cb11-94" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
-<span id="cb11-95"><a href="#cb11-95" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
-<span id="cb11-96"><a href="#cb11-96" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
-<span id="cb11-97"><a href="#cb11-97" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
-<span id="cb11-98"><a href="#cb11-98" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
-<span id="cb11-99"><a href="#cb11-99" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
-<span id="cb11-100"><a href="#cb11-100" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
-<span id="cb11-101"><a href="#cb11-101" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
-<span id="cb11-102"><a href="#cb11-102" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
-<span id="cb11-103"><a href="#cb11-103" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-104"><a href="#cb11-104" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
-<span id="cb11-105"><a href="#cb11-105" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-106"><a href="#cb11-106" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
-<span id="cb11-107"><a href="#cb11-107" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
-<span id="cb11-108"><a href="#cb11-108" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb11-109"><a href="#cb11-109" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
-<span id="cb11-110"><a href="#cb11-110" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
-<span id="cb11-111"><a href="#cb11-111" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
-<span id="cb11-112"><a href="#cb11-112" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
-<span id="cb11-113"><a href="#cb11-113" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
-<span id="cb11-114"><a href="#cb11-114" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-115"><a href="#cb11-115" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
-<span id="cb11-116"><a href="#cb11-116" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-117"><a href="#cb11-117" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by change score y (t-1)  </span></span>
-<span id="cb11-118"><a href="#cb11-118" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dx3 ~ xi_lag_xy * dy2 </span></span>
-<span id="cb11-119"><a href="#cb11-119" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by change score x (t-1)  </span></span>
-<span id="cb11-120"><a href="#cb11-120" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; dy3 ~ xi_lag_yx * dx2 </span></span>
-<span id="cb11-121"><a href="#cb11-121" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-122"><a href="#cb11-122" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # ---- Additaional Model Specifications ----</span></span>
-<span id="cb11-123"><a href="#cb11-123" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
-<span id="cb11-124"><a href="#cb11-124" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; age ~~ age_j2 * j2</span></span></code></pre></div>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" tabindex="-1"></a><span class="co"># Specify bivariate LCSM</span></span>
+<span id="cb10-2"><a href="#cb10-2" tabindex="-1"></a>lavaan_bi_lcsm_xi_add <span class="ot">&lt;-</span> <span class="fu">specify_bi_lcsm</span>(<span class="at">timepoints =</span> <span class="dv">3</span>, </span>
+<span id="cb10-3"><a href="#cb10-3" tabindex="-1"></a>                                        <span class="at">var_x =</span> <span class="st">&quot;x&quot;</span>,</span>
+<span id="cb10-4"><a href="#cb10-4" tabindex="-1"></a>                                        <span class="at">model_x =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-5"><a href="#cb10-5" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-6"><a href="#cb10-6" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-7"><a href="#cb10-7" tabindex="-1"></a>                                        <span class="at">var_y =</span> <span class="st">&quot;y&quot;</span>,  </span>
+<span id="cb10-8"><a href="#cb10-8" tabindex="-1"></a>                                        <span class="at">model_y =</span> <span class="fu">list</span>(<span class="at">alpha_constant =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-9"><a href="#cb10-9" tabindex="-1"></a>                                                       <span class="at">beta =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-10"><a href="#cb10-10" tabindex="-1"></a>                                                       <span class="at">phi =</span> <span class="cn">TRUE</span>),  </span>
+<span id="cb10-11"><a href="#cb10-11" tabindex="-1"></a>                                        <span class="at">coupling =</span> <span class="fu">list</span>(<span class="at">xi_lag_xy =</span> <span class="cn">TRUE</span>, </span>
+<span id="cb10-12"><a href="#cb10-12" tabindex="-1"></a>                                                        <span class="at">xi_lag_yx =</span> <span class="cn">TRUE</span>),</span>
+<span id="cb10-13"><a href="#cb10-13" tabindex="-1"></a>                                        <span class="at">add =</span> <span class="st">&quot;age ~~ age_j2 * j2&quot;</span>,</span>
+<span id="cb10-14"><a href="#cb10-14" tabindex="-1"></a>                                        <span class="at">change_letter_x =</span> <span class="st">&quot;g&quot;</span>,</span>
+<span id="cb10-15"><a href="#cb10-15" tabindex="-1"></a>                                        <span class="at">change_letter_y =</span> <span class="st">&quot;j&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" tabindex="-1"></a><span class="co"># To get a readable output use cat() function</span></span>
+<span id="cb11-2"><a href="#cb11-2" tabindex="-1"></a><span class="fu">cat</span>(lavaan_bi_lcsm_xi_add)</span>
+<span id="cb11-3"><a href="#cb11-3" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-4"><a href="#cb11-4" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct x ----</span></span>
+<span id="cb11-5"><a href="#cb11-5" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-6"><a href="#cb11-6" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb11-7"><a href="#cb11-7" tabindex="-1"></a><span class="co">#&gt; lx1 =~ 1 * x1 </span></span>
+<span id="cb11-8"><a href="#cb11-8" tabindex="-1"></a><span class="co">#&gt; lx2 =~ 1 * x2 </span></span>
+<span id="cb11-9"><a href="#cb11-9" tabindex="-1"></a><span class="co">#&gt; lx3 =~ 1 * x3 </span></span>
+<span id="cb11-10"><a href="#cb11-10" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb11-11"><a href="#cb11-11" tabindex="-1"></a><span class="co">#&gt; lx1 ~ gamma_lx1 * 1 </span></span>
+<span id="cb11-12"><a href="#cb11-12" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 0 * 1 </span></span>
+<span id="cb11-13"><a href="#cb11-13" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 0 * 1 </span></span>
+<span id="cb11-14"><a href="#cb11-14" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb11-15"><a href="#cb11-15" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma2_lx1 * lx1 </span></span>
+<span id="cb11-16"><a href="#cb11-16" tabindex="-1"></a><span class="co">#&gt; lx2 ~~ 0 * lx2 </span></span>
+<span id="cb11-17"><a href="#cb11-17" tabindex="-1"></a><span class="co">#&gt; lx3 ~~ 0 * lx3 </span></span>
+<span id="cb11-18"><a href="#cb11-18" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb11-19"><a href="#cb11-19" tabindex="-1"></a><span class="co">#&gt; x1 ~ 0 * 1 </span></span>
+<span id="cb11-20"><a href="#cb11-20" tabindex="-1"></a><span class="co">#&gt; x2 ~ 0 * 1 </span></span>
+<span id="cb11-21"><a href="#cb11-21" tabindex="-1"></a><span class="co">#&gt; x3 ~ 0 * 1 </span></span>
+<span id="cb11-22"><a href="#cb11-22" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb11-23"><a href="#cb11-23" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma2_ux * x1 </span></span>
+<span id="cb11-24"><a href="#cb11-24" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma2_ux * x2 </span></span>
+<span id="cb11-25"><a href="#cb11-25" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma2_ux * x3 </span></span>
+<span id="cb11-26"><a href="#cb11-26" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb11-27"><a href="#cb11-27" tabindex="-1"></a><span class="co">#&gt; lx2 ~ 1 * lx1 </span></span>
+<span id="cb11-28"><a href="#cb11-28" tabindex="-1"></a><span class="co">#&gt; lx3 ~ 1 * lx2 </span></span>
+<span id="cb11-29"><a href="#cb11-29" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb11-30"><a href="#cb11-30" tabindex="-1"></a><span class="co">#&gt; dx2 =~ 1 * lx2 </span></span>
+<span id="cb11-31"><a href="#cb11-31" tabindex="-1"></a><span class="co">#&gt; dx3 =~ 1 * lx3 </span></span>
+<span id="cb11-32"><a href="#cb11-32" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb11-33"><a href="#cb11-33" tabindex="-1"></a><span class="co">#&gt; dx2 ~ 0 * 1 </span></span>
+<span id="cb11-34"><a href="#cb11-34" tabindex="-1"></a><span class="co">#&gt; dx3 ~ 0 * 1 </span></span>
+<span id="cb11-35"><a href="#cb11-35" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb11-36"><a href="#cb11-36" tabindex="-1"></a><span class="co">#&gt; dx2 ~~ 0 * dx2 </span></span>
+<span id="cb11-37"><a href="#cb11-37" tabindex="-1"></a><span class="co">#&gt; dx3 ~~ 0 * dx3 </span></span>
+<span id="cb11-38"><a href="#cb11-38" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb11-39"><a href="#cb11-39" tabindex="-1"></a><span class="co">#&gt; g2 =~ 1 * dx2 + 1 * dx3 </span></span>
+<span id="cb11-40"><a href="#cb11-40" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb11-41"><a href="#cb11-41" tabindex="-1"></a><span class="co">#&gt; g2 ~ alpha_g2 * 1 </span></span>
+<span id="cb11-42"><a href="#cb11-42" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb11-43"><a href="#cb11-43" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma2_g2 * g2 </span></span>
+<span id="cb11-44"><a href="#cb11-44" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb11-45"><a href="#cb11-45" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_g2lx1 * lx1</span></span>
+<span id="cb11-46"><a href="#cb11-46" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb11-47"><a href="#cb11-47" tabindex="-1"></a><span class="co">#&gt; dx2 ~ beta_x * lx1 </span></span>
+<span id="cb11-48"><a href="#cb11-48" tabindex="-1"></a><span class="co">#&gt; dx3 ~ beta_x * lx2 </span></span>
+<span id="cb11-49"><a href="#cb11-49" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb11-50"><a href="#cb11-50" tabindex="-1"></a><span class="co">#&gt; dx3 ~ phi_x * dx2 </span></span>
+<span id="cb11-51"><a href="#cb11-51" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-52"><a href="#cb11-52" tabindex="-1"></a><span class="co">#&gt; # Specify parameters for construct y ----</span></span>
+<span id="cb11-53"><a href="#cb11-53" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-54"><a href="#cb11-54" tabindex="-1"></a><span class="co">#&gt; # Specify latent true scores </span></span>
+<span id="cb11-55"><a href="#cb11-55" tabindex="-1"></a><span class="co">#&gt; ly1 =~ 1 * y1 </span></span>
+<span id="cb11-56"><a href="#cb11-56" tabindex="-1"></a><span class="co">#&gt; ly2 =~ 1 * y2 </span></span>
+<span id="cb11-57"><a href="#cb11-57" tabindex="-1"></a><span class="co">#&gt; ly3 =~ 1 * y3 </span></span>
+<span id="cb11-58"><a href="#cb11-58" tabindex="-1"></a><span class="co">#&gt; # Specify mean of latent true scores </span></span>
+<span id="cb11-59"><a href="#cb11-59" tabindex="-1"></a><span class="co">#&gt; ly1 ~ gamma_ly1 * 1 </span></span>
+<span id="cb11-60"><a href="#cb11-60" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 0 * 1 </span></span>
+<span id="cb11-61"><a href="#cb11-61" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 0 * 1 </span></span>
+<span id="cb11-62"><a href="#cb11-62" tabindex="-1"></a><span class="co">#&gt; # Specify variance of latent true scores </span></span>
+<span id="cb11-63"><a href="#cb11-63" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma2_ly1 * ly1 </span></span>
+<span id="cb11-64"><a href="#cb11-64" tabindex="-1"></a><span class="co">#&gt; ly2 ~~ 0 * ly2 </span></span>
+<span id="cb11-65"><a href="#cb11-65" tabindex="-1"></a><span class="co">#&gt; ly3 ~~ 0 * ly3 </span></span>
+<span id="cb11-66"><a href="#cb11-66" tabindex="-1"></a><span class="co">#&gt; # Specify intercept of obseved scores </span></span>
+<span id="cb11-67"><a href="#cb11-67" tabindex="-1"></a><span class="co">#&gt; y1 ~ 0 * 1 </span></span>
+<span id="cb11-68"><a href="#cb11-68" tabindex="-1"></a><span class="co">#&gt; y2 ~ 0 * 1 </span></span>
+<span id="cb11-69"><a href="#cb11-69" tabindex="-1"></a><span class="co">#&gt; y3 ~ 0 * 1 </span></span>
+<span id="cb11-70"><a href="#cb11-70" tabindex="-1"></a><span class="co">#&gt; # Specify variance of observed scores </span></span>
+<span id="cb11-71"><a href="#cb11-71" tabindex="-1"></a><span class="co">#&gt; y1 ~~ sigma2_uy * y1 </span></span>
+<span id="cb11-72"><a href="#cb11-72" tabindex="-1"></a><span class="co">#&gt; y2 ~~ sigma2_uy * y2 </span></span>
+<span id="cb11-73"><a href="#cb11-73" tabindex="-1"></a><span class="co">#&gt; y3 ~~ sigma2_uy * y3 </span></span>
+<span id="cb11-74"><a href="#cb11-74" tabindex="-1"></a><span class="co">#&gt; # Specify autoregressions of latent variables </span></span>
+<span id="cb11-75"><a href="#cb11-75" tabindex="-1"></a><span class="co">#&gt; ly2 ~ 1 * ly1 </span></span>
+<span id="cb11-76"><a href="#cb11-76" tabindex="-1"></a><span class="co">#&gt; ly3 ~ 1 * ly2 </span></span>
+<span id="cb11-77"><a href="#cb11-77" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores </span></span>
+<span id="cb11-78"><a href="#cb11-78" tabindex="-1"></a><span class="co">#&gt; dy2 =~ 1 * ly2 </span></span>
+<span id="cb11-79"><a href="#cb11-79" tabindex="-1"></a><span class="co">#&gt; dy3 =~ 1 * ly3 </span></span>
+<span id="cb11-80"><a href="#cb11-80" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores means </span></span>
+<span id="cb11-81"><a href="#cb11-81" tabindex="-1"></a><span class="co">#&gt; dy2 ~ 0 * 1 </span></span>
+<span id="cb11-82"><a href="#cb11-82" tabindex="-1"></a><span class="co">#&gt; dy3 ~ 0 * 1 </span></span>
+<span id="cb11-83"><a href="#cb11-83" tabindex="-1"></a><span class="co">#&gt; # Specify latent change scores variances </span></span>
+<span id="cb11-84"><a href="#cb11-84" tabindex="-1"></a><span class="co">#&gt; dy2 ~~ 0 * dy2 </span></span>
+<span id="cb11-85"><a href="#cb11-85" tabindex="-1"></a><span class="co">#&gt; dy3 ~~ 0 * dy3 </span></span>
+<span id="cb11-86"><a href="#cb11-86" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor </span></span>
+<span id="cb11-87"><a href="#cb11-87" tabindex="-1"></a><span class="co">#&gt; j2 =~ 1 * dy2 + 1 * dy3 </span></span>
+<span id="cb11-88"><a href="#cb11-88" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor mean </span></span>
+<span id="cb11-89"><a href="#cb11-89" tabindex="-1"></a><span class="co">#&gt; j2 ~ alpha_j2 * 1 </span></span>
+<span id="cb11-90"><a href="#cb11-90" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor variance </span></span>
+<span id="cb11-91"><a href="#cb11-91" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma2_j2 * j2 </span></span>
+<span id="cb11-92"><a href="#cb11-92" tabindex="-1"></a><span class="co">#&gt; # Specify constant change factor covariance with the initial true score </span></span>
+<span id="cb11-93"><a href="#cb11-93" tabindex="-1"></a><span class="co">#&gt; j2 ~~ sigma_j2ly1 * ly1</span></span>
+<span id="cb11-94"><a href="#cb11-94" tabindex="-1"></a><span class="co">#&gt; # Specify proportional change component </span></span>
+<span id="cb11-95"><a href="#cb11-95" tabindex="-1"></a><span class="co">#&gt; dy2 ~ beta_y * ly1 </span></span>
+<span id="cb11-96"><a href="#cb11-96" tabindex="-1"></a><span class="co">#&gt; dy3 ~ beta_y * ly2 </span></span>
+<span id="cb11-97"><a href="#cb11-97" tabindex="-1"></a><span class="co">#&gt; # Specify autoregression of change score </span></span>
+<span id="cb11-98"><a href="#cb11-98" tabindex="-1"></a><span class="co">#&gt; dy3 ~ phi_y * dy2 </span></span>
+<span id="cb11-99"><a href="#cb11-99" tabindex="-1"></a><span class="co">#&gt; # Specify residual covariances </span></span>
+<span id="cb11-100"><a href="#cb11-100" tabindex="-1"></a><span class="co">#&gt; x1 ~~ sigma_su * y1 </span></span>
+<span id="cb11-101"><a href="#cb11-101" tabindex="-1"></a><span class="co">#&gt; x2 ~~ sigma_su * y2 </span></span>
+<span id="cb11-102"><a href="#cb11-102" tabindex="-1"></a><span class="co">#&gt; x3 ~~ sigma_su * y3 </span></span>
+<span id="cb11-103"><a href="#cb11-103" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-104"><a href="#cb11-104" tabindex="-1"></a><span class="co">#&gt; # Specify covariances betweeen specified change components (alpha) and intercepts (initial latent true scores lx1 and ly1) ----</span></span>
+<span id="cb11-105"><a href="#cb11-105" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-106"><a href="#cb11-106" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of intercepts </span></span>
+<span id="cb11-107"><a href="#cb11-107" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_ly1lx1 * ly1 </span></span>
+<span id="cb11-108"><a href="#cb11-108" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb11-109"><a href="#cb11-109" tabindex="-1"></a><span class="co">#&gt; ly1 ~~ sigma_g2ly1 * g2 </span></span>
+<span id="cb11-110"><a href="#cb11-110" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change and intercept between constructs </span></span>
+<span id="cb11-111"><a href="#cb11-111" tabindex="-1"></a><span class="co">#&gt; lx1 ~~ sigma_j2lx1 * j2 </span></span>
+<span id="cb11-112"><a href="#cb11-112" tabindex="-1"></a><span class="co">#&gt; # Specify covariance of constant change factors between constructs </span></span>
+<span id="cb11-113"><a href="#cb11-113" tabindex="-1"></a><span class="co">#&gt; g2 ~~ sigma_j2g2 * j2 </span></span>
+<span id="cb11-114"><a href="#cb11-114" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-115"><a href="#cb11-115" tabindex="-1"></a><span class="co">#&gt; # Specify between-construct coupling parameters ----</span></span>
+<span id="cb11-116"><a href="#cb11-116" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-117"><a href="#cb11-117" tabindex="-1"></a><span class="co">#&gt; # Change score x (t) is determined by change score y (t-1)  </span></span>
+<span id="cb11-118"><a href="#cb11-118" tabindex="-1"></a><span class="co">#&gt; dx3 ~ xi_lag_xy * dy2 </span></span>
+<span id="cb11-119"><a href="#cb11-119" tabindex="-1"></a><span class="co">#&gt; # Change score y (t) is determined by change score x (t-1)  </span></span>
+<span id="cb11-120"><a href="#cb11-120" tabindex="-1"></a><span class="co">#&gt; dy3 ~ xi_lag_yx * dx2 </span></span>
+<span id="cb11-121"><a href="#cb11-121" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-122"><a href="#cb11-122" tabindex="-1"></a><span class="co">#&gt; # ---- Additaional Model Specifications ----</span></span>
+<span id="cb11-123"><a href="#cb11-123" tabindex="-1"></a><span class="co">#&gt; # # # # # # # # # # # # # # # # # # # # # # #</span></span>
+<span id="cb11-124"><a href="#cb11-124" tabindex="-1"></a><span class="co">#&gt; age ~~ age_j2 * j2</span></span></code></pre></div>
 </div>
 </div>
 <div id="todos" class="section level1">
